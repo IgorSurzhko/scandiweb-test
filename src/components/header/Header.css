@@ -1,0 +1,50 @@
+.container {
+	height: 80px;
+	margin: 0 110px 0 110px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.categories {
+	width: 234px;
+	padding-top: 24px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	padding: 0px;
+}
+
+.categories p {
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 120%;
+	text-transform: uppercase;
+}
+
+.logo {
+	width: 41px;
+	height: 41px;
+}
+
+.cartAndCurrency {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.currencyIcon {
+	height: 29px;
+	width: 38px;
+}
+
+.cartIcon {
+	margin-left: 22px;
+	width: 20px;
+	height: 20px;
+}
