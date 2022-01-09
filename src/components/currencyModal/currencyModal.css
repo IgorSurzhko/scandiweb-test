@@ -1,0 +1,20 @@
+.currencyModal {
+	position: absolute;
+	top: 80px;
+	right: 87px;
+	width: 114px;
+	background: white;
+	z-index: 200;
+	filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+}
+
+.currencyModal div {
+	width: 114px;
+	margin: 20px 40px 20px 20px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 160%;
+	color: #1d1f22;
+}

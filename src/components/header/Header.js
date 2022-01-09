@@ -1,16 +1,26 @@
 import { Component } from 'react';
 import { ReactComponent as ShopLogo } from '../../assets/a-logo.svg';
+import CurrencyModal from '../currencyModal/CurrencyModal';
 import ModalCart from '../modalCart/ModalCart';
 import './Header.css';
 
 export default class Header extends Component {
 	state = {
-		show: false
+		show: false,
+		currency: false
 	};
 
 	showModal = e => {
 		this.setState(prevState => ({
-			show: !prevState.show
+			show: !prevState.show,
+			currency: prevState.currency
+		}));
+	};
+
+	showCurrency = e => {
+		this.setState(prevState => ({
+			show: prevState.show,
+			currency: !prevState.currency
 		}));
 	};
 
@@ -26,7 +36,13 @@ export default class Header extends Component {
 				<ShopLogo />
 
 				<div className="cartAndCurrency">
-					<img className="currencyIcon" alt="logo" src={require('../../assets/Group 1.png')} />
+					<button
+						onClick={e => {
+							this.showCurrency();
+						}}>
+						<img className="currencyIcon" alt="logo" src={require('../../assets/Group 1.png')} />
+					</button>
+
 					<button
 						onClick={e => {
 							this.showModal();
@@ -34,6 +50,7 @@ export default class Header extends Component {
 						<img className="cartIcon" alt="logo" src={require('../../assets/Empty Cart.png')} />
 					</button>
 				</div>
+				<CurrencyModal currency={this.state.currency} />
 				<ModalCart show={this.state.show} />
 			</div>
 		);
