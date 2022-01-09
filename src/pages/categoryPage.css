@@ -1,0 +1,7 @@
+.bodyItems {
+	margin: 0 101px 0 101px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 103px 40px;
+}

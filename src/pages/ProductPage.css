@@ -1,0 +1,127 @@
+.productBox {
+	margin: 80px 0 0 101px;
+	display: flex;
+}
+
+.miniPicBox {
+	display: flex;
+	flex-direction: column;
+	row-gap: 40px;
+}
+.miniPicBox img {
+	width: 79px;
+	height: 80px;
+}
+
+.bigPicBox {
+	margin-left: 40px;
+}
+
+.bigPicBox img {
+	width: 610px;
+	height: 511px;
+}
+
+.sizeSelection {
+	display: flex;
+	column-gap: 12px;
+}
+
+.sizeSelection div {
+	width: 63px;
+	height: 45px;
+	border: 1px solid;
+	text-align: center;
+
+	font-family: Source Sans Pro;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 40px;
+}
+
+.itemAttr {
+	margin-left: 100px;
+	width: 292px;
+}
+
+.itemName {
+	margin: 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 30px;
+	line-height: 27px;
+	color: #1d1f22;
+}
+
+.itemDescr {
+	margin: 16px 0 0 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 30px;
+	line-height: 27px;
+	color: #1d1f22;
+}
+
+.itemSize {
+	margin: 43px 0 0 0;
+	color: #1d1f22;
+	font-family: Roboto Condensed;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 18px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.sizeSelection {
+	margin-top: 8px;
+}
+
+.itemPrice {
+	margin-top: 40px;
+	font-family: Roboto Condensed;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 18px;
+	text-transform: uppercase;
+	color: #1d1f22;
+}
+
+.itemPriceDigit {
+	margin: 20px 0 0 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 18px;
+	color: #1d1f22;
+}
+
+button {
+	margin-top: 30px;
+	border: none;
+	background: #5ece7b;
+	width: 292px;
+	height: 52px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 16px;
+	line-height: 120%;
+	color: #ffffff;
+	text-transform: uppercase;
+}
+
+.itemDescrText {
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 159.96%;
+	color: #1d1f22;
+}

@@ -1,0 +1,28 @@
+.cardBox {
+	padding: 16px;
+	display: inline-flex;
+	flex-direction: column;
+}
+
+img {
+	width: 354px;
+	height: 330px;
+}
+
+.itemName {
+	margin: 24px 0 0 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 18px;
+	line-height: 160%;
+}
+
+.itemPrice {
+	margin: 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 160%;
+}
