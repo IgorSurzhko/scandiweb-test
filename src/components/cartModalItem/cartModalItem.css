@@ -1,0 +1,56 @@
+.cartModalBox {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 41px;
+}
+.cartModalBox .itemName {
+	margin-top: 25px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 160%;
+}
+
+.cartModalBox .itemDescr {
+	margin-top: 2px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 160%;
+}
+
+.cartModalBox .itemPriceDigit {
+	margin-top: 8px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 160%;
+}
+
+.cartModalBox .sizeSelection {
+	margin-top: 22px;
+	column-gap: 8px;
+}
+
+.cartModalBox .sizeSelection div {
+	width: 24px;
+	height: 24px;
+	line-height: 22px;
+}
+
+.cartModalBox .quantity {
+	height: 137px;
+}
+
+.cartModalBox .quantity button {
+	width: 24px;
+	height: 24px;
+}
+
+.cartModalBox .prodImg .productImage {
+	width: 105px;
+	height: 137px;
+}

@@ -5,7 +5,7 @@ export default class MainText extends Component {
 	render() {
 		return (
 			<div className="mainText">
-				<p>Category Name</p>
+				<p>{this.props.text}</p>
 			</div>
 		);
 	}

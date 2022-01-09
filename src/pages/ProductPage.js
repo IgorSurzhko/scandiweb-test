@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import Header from '../components/header/Header';
-import './ProductPage.css';
+import './productPage.css';
 
 export default class ProductPage extends Component {
 	render() {
