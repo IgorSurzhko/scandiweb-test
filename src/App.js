@@ -2,38 +2,34 @@ import './App.css';
 import Cart from './pages/Cart';
 import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
+import { CATEGORY_QUERY } from './utils/queries';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-import { useQuery, gql } from '@apollo/client';
-
-const TECH_CATEGORY = gql`
-	query {
-		category(input: { title: "tech" }) {
-			products {
-				id
-				name
-			}
-		}
-	}
-`;
+import { useQuery } from '@apollo/client';
 
 function App() {
-	const { loading, error, data } = useQuery(TECH_CATEGORY);
+	function QueryFormat(queryVar) {
+		const fetchedQueryVar = useQuery(CATEGORY_QUERY, { variables: { title: queryVar } });
+		return fetchedQueryVar;
+	}
 
-	if (loading) return <p>Loading...</p>;
-	if (error) return <p>Error :(</p>;
+	const { loading: allLoading, error: allError, data: allData } = QueryFormat('all');
+	const { loading: clothesLoading, error: clothesError, data: clothesData } = QueryFormat('clothes');
+	const { loading: techLoading, error: techError, data: techData } = QueryFormat('tech');
 
-	console.log(data);
+	if (allLoading | clothesLoading | techLoading) return <p>Loading...</p>;
+	if (allError | clothesError | techError) return <p>Error :(</p>;
 
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Navigate to="/all" />} />
-
-				<Route path="/all" element={<Cart />} />
-				<Route path="/clothes" element={<ProductPage />} />
-				<Route path="/tech" element={<CategoryPage />} />
+				<Route path="/all" element={<CategoryPage data={allData} />} />
+				<Route path="/cart" element={<Cart />} />
+				<Route path="/clothes" element={<CategoryPage data={clothesData} />} />
+				<Route path="/tech" element={<CategoryPage data={techData} />} />
+				<Route path="/:category/:id" element={<ProductPage />} />
 			</Routes>
 		</Router>
 	);

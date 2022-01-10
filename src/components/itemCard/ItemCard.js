@@ -1,11 +1,14 @@
 import { Component } from 'react';
+import getSymbolFromCurrency from 'currency-symbol-map';
+import { Link } from 'react-router-dom';
+
 import './itemCard.css';
 
 export default class ItemCard extends Component {
 	render() {
 		return (
-			<div className="cardBox">
-				<img src={require('../../assets/product card example.png')} alt="card_image" />
+			<Link to={this.props.id} className="cardBox">
+				<img src={this.props.gallery[0]} alt="card_image" />
 				<button>
 					<img
 						className="cart"
@@ -14,9 +17,12 @@ export default class ItemCard extends Component {
 					/>
 				</button>
 
-				<p className="itemName">Apollo Running Short</p>
-				<p className="itemPrice">$50.00</p>
-			</div>
+				<p className="itemName">{this.props.name}</p>
+				<p className="itemPrice">
+					{getSymbolFromCurrency(this.props.prices[0].currency.label)}
+					{this.props.prices[0].amount}
+				</p>
+			</Link>
 		);
 	}
 }

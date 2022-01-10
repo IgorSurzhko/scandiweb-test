@@ -5,8 +5,10 @@
 }
 
 .cardBox img {
+	pointer-events: none;
 	width: 354px;
 	height: 330px;
+	object-fit: contain;
 }
 
 .cardBox button {
@@ -32,6 +34,7 @@
 }
 
 .cardBox .itemName {
+	pointer-events: none;
 	margin: 24px 0 0 0;
 	font-family: Raleway;
 	font-style: normal;
@@ -41,6 +44,7 @@
 }
 
 .cardBox .itemPrice {
+	pointer-events: none;
 	margin: 0;
 	font-family: Raleway;
 	font-style: normal;

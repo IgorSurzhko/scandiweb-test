@@ -9,7 +9,7 @@ export default class CartModalItem extends Component {
 					<p className="itemName">Apollo</p>
 					<p className="itemDescr">Running Short</p>
 					<p className="itemPriceDigit">$50.00</p>
-					<div class="sizeSelection">
+					<div className="sizeSelection">
 						<div>XS</div>
 						<div>S</div>
 						<div>M</div>

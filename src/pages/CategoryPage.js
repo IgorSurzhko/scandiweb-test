@@ -11,13 +11,9 @@ export default class CategoryPage extends Component {
 				<Header />
 				<MainText />
 				<div className="bodyItems">
-					<ItemCard />
-					<ItemCard />
-					<ItemCard />
-					<ItemCard />
-					<ItemCard />
-					<ItemCard />
-					<ItemCard />
+					{this.props.data.category.products.map(({ id, name, inStock, gallery, prices }) => (
+						<ItemCard o key={id} id={id} name={name} inStock={inStock} gallery={gallery} prices={prices} />
+					))}
 				</div>
 			</>
 		);
