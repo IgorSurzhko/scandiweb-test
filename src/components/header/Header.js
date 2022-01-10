@@ -4,6 +4,8 @@ import CurrencyModal from '../currencyModal/CurrencyModal';
 import ModalCart from '../modalCart/ModalCart';
 import './Header.css';
 
+import { NavLink } from 'react-router-dom';
+
 export default class Header extends Component {
 	state = {
 		show: false,
@@ -28,9 +30,9 @@ export default class Header extends Component {
 		return (
 			<div className="container">
 				<div className="categories">
-					<p>WOMEN</p>
-					<p>MEN</p>
-					<p>KIDS</p>
+					<NavLink to="/all">All</NavLink>
+					<NavLink to="/clothes">Clothes</NavLink>
+					<NavLink to="/tech">Tech</NavLink>
 				</div>
 
 				<ShopLogo />

@@ -17,13 +17,27 @@
 	padding: 0px;
 }
 
-.categories p {
+.categories a {
+	height: 70px;
+	width: 80px;
+	text-align: center;
+
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
-	line-height: 120%;
+	line-height: 400%;
 	text-transform: uppercase;
+	color: #1d1f22;
+	text-decoration: none;
+}
+
+a.active {
+	font-weight: 600;
+
+	color: #5ece7b;
+
+	border-bottom: 2px solid;
 }
 
 .logo {

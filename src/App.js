@@ -2,6 +2,9 @@ import './App.css';
 import Cart from './pages/Cart';
 import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
+
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import { useQuery, gql } from '@apollo/client';
 
 const TECH_CATEGORY = gql`
@@ -24,9 +27,15 @@ function App() {
 	console.log(data);
 
 	return (
-		// <Cart />
-		// <ProductPage />
-		<CategoryPage />
+		<Router>
+			<Routes>
+				<Route path="/" element={<Navigate to="/all" />} />
+
+				<Route path="/all" element={<Cart />} />
+				<Route path="/clothes" element={<ProductPage />} />
+				<Route path="/tech" element={<CategoryPage />} />
+			</Routes>
+		</Router>
 	);
 }
 
