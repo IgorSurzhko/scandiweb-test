@@ -1,13 +1,17 @@
 import { Component } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { Link } from 'react-router-dom';
-
 import './itemCard.css';
+import { productFetch } from '../../utils/queries';
 
 export default class ItemCard extends Component {
+	onClickHandler = async e => {
+		// console.log(e.target.id);
+		productFetch(e.target.id);
+	};
 	render() {
 		return (
-			<Link to={this.props.id} className="cardBox">
+			<Link to={this.props.id} id={this.props.id} onClick={this.onClickHandler} className="cardBox">
 				<img src={this.props.gallery[0]} alt="card_image" />
 				<button>
 					<img

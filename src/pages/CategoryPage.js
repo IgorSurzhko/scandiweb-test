@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Header from '../components/header/Header';
 import ItemCard from '../components/itemCard/ItemCard';
 import MainText from '../components/mainText/MainText';
+
 import './categoryPage.css';
 
 export default class CategoryPage extends Component {
@@ -12,7 +13,7 @@ export default class CategoryPage extends Component {
 				<MainText />
 				<div className="bodyItems">
 					{this.props.data.category.products.map(({ id, name, inStock, gallery, prices }) => (
-						<ItemCard o key={id} id={id} name={name} inStock={inStock} gallery={gallery} prices={prices} />
+						<ItemCard key={id} id={id} name={name} inStock={inStock} gallery={gallery} prices={prices} />
 					))}
 				</div>
 			</>
