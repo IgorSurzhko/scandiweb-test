@@ -21,9 +21,8 @@ export const CATEGORY_QUERY = gql`
 `;
 
 export function productFetch(id) {
-	client
-		.query({
-			query: gql`
+	return client.query({
+		query: gql`
 				query GetRates {
 					product(id: "${id}") {
 						id
@@ -53,6 +52,5 @@ export function productFetch(id) {
 					}
 				}
 			`
-		})
-		.then(result => console.log(result));
+	});
 }
