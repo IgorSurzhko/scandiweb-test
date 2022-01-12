@@ -9,15 +9,18 @@
 	row-gap: 40px;
 }
 .miniPicBox img {
+	object-fit: contain;
 	width: 79px;
 	height: 80px;
 }
 
 .bigPicBox {
 	margin-left: 40px;
+	height: 600px;
 }
 
 .bigPicBox img {
+	object-fit: contain;
 	width: 610px;
 	height: 511px;
 }
@@ -121,6 +124,7 @@
 }
 
 .itemDescrText {
+	margin-top: 40px;
 	font-family: Roboto;
 	font-style: normal;
 	font-weight: normal;

@@ -5,7 +5,11 @@ import './modalCart.css';
 export default class ModalCart extends Component {
 	render() {
 		if (!this.props.show) {
+			document.body.style.overflow = 'scroll';
 			return null;
+		}
+		if (this.props.show) {
+			document.body.style.overflow = 'hidden';
 		}
 		return (
 			<>

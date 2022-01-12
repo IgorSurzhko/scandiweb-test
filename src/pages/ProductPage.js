@@ -7,46 +7,58 @@ export default class ProductPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			product: {}
+			isLoaded: true,
+			product: {},
+			bigImgSrc: ''
 		};
 	}
 
 	async componentDidMount() {
 		const id = window.location.pathname.split('/')[2];
 		let res = await productFetch(id);
-		this.setState({ product: res.data.product });
+		this.setState({ product: res.data.product, isLoaded: false, bigImgSrc: res.data.product.gallery[0] });
 		// console.log(this.state.product.gallery);
-		console.log(this.state.product);
+		// console.log(this.state.product);
 	}
 
 	createMarkup() {
 		return { __html: `${this.state.product.description}` };
 	}
 
+	onClickHandler = e => {
+		this.setState({
+			bigImgSrc: e.target.src
+		});
+		console.log(this.state);
+	};
+
 	render() {
 		return (
 			<>
 				<Header />
-				{Object.keys(this.state.product).length !== 0 && (
+				{!this.state.isLoaded && (
 					<div className="productBox">
 						<div className="miniPicBox">
 							{this.state.product.gallery.map(gallery => (
-								<img key={gallery} src={gallery} alt="prod pic" />
+								<img onClick={this.onClickHandler} key={gallery} src={gallery} alt="prod pic" />
 							))}
 						</div>
-						<div className="bigPicBox">
-							{<img src={this.state.product.gallery[0]} alt="prod main pic" />}
-						</div>
+						<div className="bigPicBox">{<img src={this.state.bigImgSrc} alt="prod main pic" />}</div>
 						<div className="itemAttr">
 							<p className="itemName">{this.state.product.brand}</p>
 							<p className="itemDescr">{this.state.product.name}</p>
-							<p className="itemSize">{this.state.product.attributes[0].name}:</p>
-							<div className="sizeSelection">
-								<div>XS</div>
-								<div>S</div>
-								<div>M</div>
-								<div>L</div>
-							</div>
+
+							{this.state.product.attributes[0] && (
+								<>
+									<p className="itemSize"> {this.state.product.attributes[0].name}:</p>
+									<div className="sizeSelection">
+										<div>XS</div>
+										<div>S</div>
+										<div>M</div>
+										<div>L</div>
+									</div>
+								</>
+							)}
 
 							<p className="itemPrice">Price:</p>
 							<p className="itemPriceDigit">
