@@ -4,10 +4,6 @@ import { Link } from 'react-router-dom';
 import './itemCard.css';
 
 export default class ItemCard extends Component {
-	// onClickHandler = async e => {
-	// 	// console.log(e.target.id);
-	// 	productFetch(e.target.id);
-	// };
 	render() {
 		return (
 			<Link to={this.props.id} id={this.props.id} className="cardBox">
