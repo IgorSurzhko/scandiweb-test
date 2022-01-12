@@ -1,8 +1,23 @@
 import { Component } from 'react';
 import CartModalItem from '../cartModalItem/CartModalItem';
+import ProductContext from '../../utils/ProductContext';
 import './modalCart.css';
 
 export default class ModalCart extends Component {
+	constructor() {
+		super();
+		this.state = {
+			purchasedProd: {}
+		};
+	}
+	static contextType = ProductContext;
+
+	async componentDidMount() {
+		const product = await this.context;
+		// console.log('modal prod', product.product[0].name);
+		this.setState({ purchasedProd: product });
+		// console.log('state', this.state.purchasedProd);
+	}
 	render() {
 		if (!this.props.show) {
 			document.body.style.overflow = 'scroll';
@@ -18,7 +33,7 @@ export default class ModalCart extends Component {
 					<div>
 						<span>My Bag,</span> <span>2</span> items
 					</div>
-					<CartModalItem />
+					<CartModalItem purchasedProd={this.state.purchasedProd} />
 					<CartModalItem />
 					<div className="totalPrice">
 						<div>Total</div>

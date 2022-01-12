@@ -8,7 +8,11 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import { useQuery } from '@apollo/client';
 
+import { ProductProvider } from './utils/ProductContext';
+
 function App() {
+	const product = {};
+
 	function QueryFormat(queryVar) {
 		const fetchedQueryVar = useQuery(CATEGORY_QUERY, { variables: { title: queryVar } });
 		return fetchedQueryVar;
@@ -22,16 +26,19 @@ function App() {
 	if (allError | clothesError | techError) return <p>Error :(</p>;
 
 	return (
-		<Router>
-			<Routes>
-				<Route path="/" element={<Navigate to="/all" />} />
-				<Route path="/all" element={<CategoryPage data={allData} />} />
-				<Route path="/cart" element={<Cart />} />
-				<Route path="/clothes" element={<CategoryPage data={clothesData} />} />
-				<Route path="/tech" element={<CategoryPage data={techData} />} />
-				<Route path="/:category/:id" element={<ProductPage />} />
-			</Routes>
-		</Router>
+		<ProductProvider product={product}>
+			<Router>
+				<Routes>
+					<Route path="/" element={<Navigate to="/all" />} />
+					<Route path="/all" element={<CategoryPage data={allData} />} />
+					<Route path="/cart" element={<Cart />} />
+					<Route path="/clothes" element={<CategoryPage data={clothesData} />} />
+					<Route path="/tech" element={<CategoryPage data={techData} />} />
+					<Route path="/:category/:id" element={<ProductPage />} />
+					<Route path="/cart" element={<Cart />} />
+				</Routes>
+			</Router>
+		</ProductProvider>
 	);
 }
 

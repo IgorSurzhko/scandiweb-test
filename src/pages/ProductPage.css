@@ -31,22 +31,9 @@
 	height: 511px;
 }
 
-.sizeSelection {
+.attrSelection {
 	display: flex;
 	column-gap: 12px;
-}
-
-.sizeSelection div {
-	width: 63px;
-	height: 45px;
-	border: 1px solid;
-	text-align: center;
-
-	font-family: Source Sans Pro;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	line-height: 40px;
 }
 
 .itemAttr {
@@ -137,4 +124,44 @@
 	font-size: 16px;
 	line-height: 159.96%;
 	color: #1d1f22;
+}
+
+input {
+	display: none;
+}
+
+label {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 63px;
+	height: 45px;
+	border: 2px solid #1d1f2200;
+	text-align: center;
+
+	font-family: Source Sans Pro;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 18px;
+}
+
+input:hover + label {
+	border: 2px solid #000000;
+
+	background: black;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+input:checked + label {
+	border: 2px solid #000000;
+	background: black;
+	color: #ffffff;
+}
+
+.wrapper {
+	margin: 10px 0;
+	border: 1px solid #000000;
 }

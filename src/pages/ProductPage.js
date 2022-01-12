@@ -1,7 +1,9 @@
 import { Component } from 'react';
 import Header from '../components/header/Header';
 import { productFetch } from '../utils/queries';
+import ProductContext from '../utils/ProductContext';
 import './productPage.css';
+import { Link } from 'react-router-dom';
 
 export default class ProductPage extends Component {
 	constructor(props) {
@@ -9,27 +11,33 @@ export default class ProductPage extends Component {
 		this.state = {
 			isLoaded: true,
 			product: {},
-			bigImgSrc: ''
+			bigImgSrc: '',
+			prodAttr: {}
 		};
 	}
+	static contextType = ProductContext;
 
 	async componentDidMount() {
 		const id = window.location.pathname.split('/')[2];
 		let res = await productFetch(id);
 		this.setState({ product: res.data.product, isLoaded: false, bigImgSrc: res.data.product.gallery[0] });
-		// console.log(this.state.product.gallery);
-		// console.log(this.state.product);
 	}
 
 	createMarkup() {
 		return { __html: `${this.state.product.description}` };
 	}
 
-	onClickHandler = e => {
-		this.setState({
-			bigImgSrc: e.target.src
-		});
-		console.log(this.state);
+	attrCheck = e => {
+		this.setState(prevState => ({
+			prodAttr: { ...prevState.prodAttr, ...{ [e.target.name]: e.target.value } }
+		}));
+	};
+
+	submitHandler = () => {
+		const { product, setProduct } = this.context;
+		const { name, gallery, brand, prices } = this.state.product;
+		const newProduct = { name, gallery, brand, prices, attributes: this.state.prodAttr };
+		setProduct(newProduct);
 	};
 
 	render() {
@@ -48,15 +56,35 @@ export default class ProductPage extends Component {
 							<p className="itemName">{this.state.product.brand}</p>
 							<p className="itemDescr">{this.state.product.name}</p>
 
-							{this.state.product.attributes[0] && (
+							{Object.keys(this.state.product.attributes).length !== 0 && (
 								<>
-									<p className="itemSize"> {this.state.product.attributes[0].name}:</p>
-									<div className="sizeSelection">
-										<div>XS</div>
-										<div>S</div>
-										<div>M</div>
-										<div>L</div>
-									</div>
+									{this.state.product.attributes.map(attr => (
+										<div key={attr.name}>
+											<p className="itemSize">{attr.name}:</p>
+											<div className="attrSelection">
+												{attr.items.map(item => (
+													<div className="wrapper" key={item.value}>
+														<input
+															onClick={this.attrCheck}
+															type="radio"
+															name={attr.name}
+															id={attr.name + item.value}
+															value={item.value}></input>
+														<label
+															htmlFor={attr.name + item.value}
+															id={item.value}
+															style={{
+																background: `${
+																	item.value.indexOf('#') !== -1 && item.value
+																}`
+															}}>
+															{!(item.value.indexOf('#') !== -1) && item.value}
+														</label>
+													</div>
+												))}
+											</div>
+										</div>
+									))}
 								</>
 							)}
 
@@ -66,7 +94,11 @@ export default class ProductPage extends Component {
 								{this.state.product.prices[0].amount}
 							</p>
 
-							<button>add to cart</button>
+							<Link to="/cart" onClick={this.submitHandler}>
+								<button> add to cart</button>
+							</Link>
+
+							{/* <button onClick={this.submitHandler}> add to cart</button> */}
 
 							<div className="itemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
 						</div>
