@@ -1,14 +1,14 @@
-.modal {
+.infoModal {
 	padding: 8px 16px 8px 16px;
 	position: absolute;
-	top: 80px;
-	right: 87px;
+	top: 30%;
+	right: 35%;
 	width: 325px;
 	background: white;
 	z-index: 20000;
 }
 
-.overlay {
+.infoModalOverlay {
 	position: absolute;
 	width: 100%;
 	height: 92vh;
@@ -19,7 +19,8 @@
 	background: rgba(57, 55, 72, 0.22);
 }
 
-.modalHeader {
+.infoModalHeader {
+	text-align: center;
 	margin-bottom: 23px;
 	font-family: Raleway;
 	font-style: normal;
@@ -29,42 +30,31 @@
 	color: #1d1f22;
 }
 
-.modalHeader span:first-child {
+.infoModalHeader span:first-child {
 	font-weight: bold;
 }
 
-.modal .totalPrice {
+.infoModalClose {
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
+}
+.infoModalClose button {
+	width: 33px;
+	height: 33px;
+	font-size: 25px;
+	cursor: pointer;
+	border: 1px solid black;
+	background: none;
 }
 
-.totalPrice div:nth-child(2) {
-	font-family: Raleway;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 160%;
-	color: #1d1f22;
-}
-
-.totalPrice div:nth-child(1) {
-	font-family: Roboto;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 16px;
-	line-height: 18px;
-	color: #1d1f22;
-}
-
-.buttons {
+.infoModalButtons {
 	margin-top: 35px;
 	display: flex;
 	justify-content: space-between;
 }
 
-.buttons button {
+.infoModalButtons button {
 	border: 1px solid #1d1f22;
-
 	width: 155px;
 	height: 43px;
 	background-color: transparent;
@@ -75,7 +65,7 @@
 	text-transform: uppercase;
 }
 
-.buttons button:nth-child(2) {
+.infoModalButtons button:nth-child(2) {
 	background: #5ece7b;
 	border: none;
 	font-family: Raleway;

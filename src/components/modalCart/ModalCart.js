@@ -31,7 +31,7 @@ export default class ModalCart extends Component {
 				<div className="overlay"></div>
 				<div className="modal">
 					<div className="modalHeader">
-						<span>My Bag,</span> <span>2</span> items
+						<span>My Cart,</span> <span>2</span> items
 					</div>
 					<CartModalItem prodProps={this.state.purchasedProd} />
 					{/* TODO: MORE ITEMS COMPONENTS  */}
@@ -41,7 +41,7 @@ export default class ModalCart extends Component {
 					</div>
 					<div className="buttons">
 						<Link to="/cart">
-							<button>View Bag</button>
+							<button>View Cart</button>
 						</Link>
 
 						<button> Check Out</button>

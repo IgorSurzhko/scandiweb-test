@@ -4,11 +4,13 @@ import { productFetch } from '../utils/queries';
 import ProductContext from '../utils/ProductContext';
 import './productPage.css';
 import { Link } from 'react-router-dom';
+import ModalInformation from '../components/modalInformation/ModalInformation';
 
 export default class ProductPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			modalShow: false,
 			isLoaded: true,
 			product: {},
 			bigImgSrc: '',
@@ -50,6 +52,13 @@ export default class ProductPage extends Component {
 
 	bigImgChanger = e => {
 		this.setState({ bigImgSrc: e.target.src });
+	};
+
+	showModal = bool => {
+		this.setState({
+			modalShow: bool
+		});
+		this.submitHandler();
 	};
 
 	render() {
@@ -105,17 +114,18 @@ export default class ProductPage extends Component {
 								{this.state.product.prices[0].currency.symbol}
 								{this.state.product.prices[0].amount}
 							</p>
-
+							{/* 
 							<Link to="/cart" onClick={this.submitHandler}>
-								<button> add to cart</button>
-							</Link>
+								<button onClick={this.showModal}> add to cart</button>
+							</Link> */}
 
-							{/* <button onClick={this.submitHandler}> add to cart</button> */}
+							<button onClick={this.showModal}> add to cart</button>
 
 							<div className="itemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
 						</div>
 					</div>
 				)}
+				<ModalInformation show={this.state.modalShow} changeShow={this.showModal} />
 			</>
 		);
 	}

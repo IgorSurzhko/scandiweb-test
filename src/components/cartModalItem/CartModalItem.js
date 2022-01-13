@@ -3,7 +3,6 @@ import './cartModalItem.css';
 
 export default class CartModalItem extends Component {
 	render() {
-		console.log('MODAL!', this.props.prodProps && this.props.prodProps.product);
 		return (
 			<>
 				{this.props.prodProps && this.props.prodProps.product && (
@@ -22,9 +21,9 @@ export default class CartModalItem extends Component {
 											<>
 												{this.props.prodProps.product.attributes.map(attr => (
 													<div key={Object.entries(attr)[0][0]}>
-														{/* <p className="cartModalItemAttrName">
+														<p className="cartModalItemAttrName">
 															{Object.entries(attr)[0][0]}:
-														</p> */}
+														</p>
 
 														<div
 															className="cartModalAttributeBox"
