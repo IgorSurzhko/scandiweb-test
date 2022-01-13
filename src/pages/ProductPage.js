@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import Header from '../components/header/Header';
-import { productFetch } from '../utils/queries';
+import { productFetch } from '../utils/Queries';
 import ProductContext from '../utils/ProductContext';
 import './productPage.css';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import ModalInformation from '../components/modalInformation/ModalInformation';
 
 export default class ProductPage extends Component {
@@ -48,6 +48,8 @@ export default class ProductPage extends Component {
 
 		const newProduct = { name, gallery, brand, prices, attributes: prodAttrFiltered };
 		setProduct(newProduct);
+
+		localStorage.setItem(`${name + brand}`, JSON.stringify(newProduct));
 	};
 
 	bigImgChanger = e => {

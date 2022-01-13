@@ -8,6 +8,16 @@
 	z-index: 20000;
 }
 
+p {
+	margin-bottom: 23px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 160%;
+	color: #1d1f22;
+}
+
 .overlay {
 	position: absolute;
 	width: 100%;

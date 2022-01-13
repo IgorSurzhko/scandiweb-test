@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { client } from './apolloClient';
+import { client } from './ApolloClient';
 
 export const CATEGORY_QUERY = gql`
 	query FetchCategory($title: String!) {

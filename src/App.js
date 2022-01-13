@@ -2,7 +2,7 @@ import './App.css';
 import Cart from './pages/Cart';
 import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
-import { CATEGORY_QUERY } from './utils/queries';
+import { CATEGORY_QUERY } from './utils/Queries';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 

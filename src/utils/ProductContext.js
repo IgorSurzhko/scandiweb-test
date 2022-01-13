@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 
 const ProductContext = React.createContext();
+let retrievedObject = localStorage.getItem('productLocalStor');
 
 class ProductProvider extends Component {
 	// Context state
 	state = {
-		product: {}
+		product: JSON.parse(retrievedObject)
 	};
 
 	// Method to update state

@@ -26,6 +26,7 @@ export default class ModalCart extends Component {
 		if (this.props.show) {
 			document.body.style.overflowY = 'hidden';
 		}
+
 		return (
 			<>
 				<div className="overlay"></div>

@@ -8,7 +8,6 @@ export default class ModalInformation extends Component {
 	};
 
 	render() {
-		console.log(this.props.changeShow);
 		if (!this.props.show) {
 			document.body.style.overflowY = 'scroll';
 			return null;

@@ -3,6 +3,9 @@ import './cartModalItem.css';
 
 export default class CartModalItem extends Component {
 	render() {
+		if (Object.keys(this.props.prodProps).length === 0 || this.props.prodProps.product === null) {
+			return <p> There no items in your cart</p>;
+		}
 		return (
 			<>
 				{this.props.prodProps && this.props.prodProps.product && (

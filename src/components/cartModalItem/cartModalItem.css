@@ -78,13 +78,11 @@
 
 .cartModalQuantity button {
 	border: 1px solid #1d1f22;
-
 	width: 24px;
 	height: 24px;
 	background-color: transparent;
 	background-repeat: no-repeat;
 	cursor: pointer;
-
 	outline: none;
 }
 
