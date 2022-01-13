@@ -12,7 +12,7 @@ export default class ProductPage extends Component {
 			isLoaded: true,
 			product: {},
 			bigImgSrc: '',
-			prodAttr: {}
+			prodAttr: [{}]
 		};
 	}
 	static contextType = ProductContext;
@@ -29,15 +29,27 @@ export default class ProductPage extends Component {
 
 	attrCheck = e => {
 		this.setState(prevState => ({
-			prodAttr: { ...prevState.prodAttr, ...{ [e.target.name]: e.target.value } }
+			prodAttr: [...prevState.prodAttr, { [e.target.name]: e.target.value }]
 		}));
 	};
 
 	submitHandler = () => {
 		const { product, setProduct } = this.context;
 		const { name, gallery, brand, prices } = this.state.product;
-		const newProduct = { name, gallery, brand, prices, attributes: this.state.prodAttr };
+
+		const prodAttrFiltered = this.state.prodAttr.filter(element => {
+			if (Object.keys(element).length !== 0) {
+				return true;
+			}
+			return false;
+		});
+
+		const newProduct = { name, gallery, brand, prices, attributes: prodAttrFiltered };
 		setProduct(newProduct);
+	};
+
+	bigImgChanger = e => {
+		this.setState({ bigImgSrc: e.target.src });
 	};
 
 	render() {
@@ -48,7 +60,7 @@ export default class ProductPage extends Component {
 					<div className="productBox">
 						<div className="miniPicBox">
 							{this.state.product.gallery.map(gallery => (
-								<img onClick={this.onClickHandler} key={gallery} src={gallery} alt="prod pic" />
+								<img onClick={this.bigImgChanger} key={gallery} src={gallery} alt="prod pic" />
 							))}
 						</div>
 						<div className="bigPicBox">{<img src={this.state.bigImgSrc} alt="prod main pic" />}</div>

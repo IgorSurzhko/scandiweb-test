@@ -20,6 +20,20 @@
 	background: rgba(57, 55, 72, 0.22);
 }
 
+.modalHeader {
+	margin-bottom: 23px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 160%;
+	color: #1d1f22;
+}
+
+.modalHeader span:first-child {
+	font-weight: bold;
+}
+
 .modal .totalPrice {
 	display: flex;
 	justify-content: space-between;

@@ -17,13 +17,14 @@ export default class Cart extends Component {
 		const product = await this.context;
 		this.setState({ purchasedProd: product });
 	}
+
 	render() {
 		return (
 			<div>
 				<Header />
 				<MainText text="Cart" />
 				<CartItem prodProps={this.state.purchasedProd} />
-				<CartItem />
+				{/* TODO: MORE ITEMS COMPONENTS  */}
 			</div>
 		);
 	}

@@ -1,6 +1,7 @@
 .cartItemBox {
-	margin: 0 0 20px 100px;
-	width: 1100px;
+	margin: 20px 240px 20px 100px;
+
+	height: 230px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -10,38 +11,109 @@
 	display: flex;
 }
 
-.quantity {
+.cartItemQuantity {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 20px;
-	height: 185px;
+	height: 230px;
 }
 
-.quantity button {
+.cartItemQuantity button {
 	width: 45px;
 	height: 45px;
 	background-color: transparent;
 	background-repeat: no-repeat;
-
 	cursor: pointer;
 	overflow: hidden;
 	outline: none;
 }
 
 hr {
-	margin: 0 0 0 100px;
-	width: 1097px;
+	margin: 0 240px 0 100px;
+
 	height: 1px;
 	background: #e5e5e5;
 	border: none;
 }
 
-.prodImg {
+.cartItemImg {
 	position: relative;
+	width: 200px;
+	margin: 0 0 0 12px;
+}
+.cartItemImg img {
+	width: 200px;
+
+	object-fit: contain;
 }
 
+.cartItemName {
+	margin: 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 30px;
+	line-height: 27px;
+	color: #1d1f22;
+}
+
+.cartItemDescr {
+	margin: 16px 0 0 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 30px;
+	line-height: 27px;
+	color: #1d1f22;
+}
+
+.cartItemPriceDigit {
+	margin: 20px 0 0 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 18px;
+	color: #1d1f22;
+}
+
+.cartAttributeBox {
+	margin: 12px 12px 0 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 5px 0 5px;
+	height: 45px;
+	border: 1px solid #1d1f22;
+	text-align: center;
+
+	font-family: Source Sans Pro;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 18px;
+}
+
+.cartItemAttributes {
+	display: flex;
+	word-wrap: break-word;
+	justify-content: space-between;
+	align-items: end;
+}
+
+.cartItemAttributesName {
+	width: 60px;
+	margin: 25px 0 0 0;
+	color: #1d1f22;
+	font-family: Roboto Condensed;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 18px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
 .arrowLeft {
 	top: 108px;
 	left: 21px;
@@ -56,18 +128,4 @@ hr {
 	width: 6px;
 	height: 12px;
 	position: absolute;
-}
-
-.prodImg .productImage {
-	margin: 20px 0 0 12px;
-	width: 141px;
-	height: 185px;
-}
-
-.cartItemBox .itemName {
-	margin-top: 20px;
-}
-
-.cartItemBox .sizeSelection {
-	margin-top: 20px;
 }

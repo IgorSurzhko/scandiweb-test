@@ -3,40 +3,59 @@ import './cartModalItem.css';
 
 export default class CartModalItem extends Component {
 	render() {
-		console.log('inside props', this.props.purchasedProd);
+		console.log('MODAL!', this.props.prodProps && this.props.prodProps.product);
 		return (
 			<>
-				{/* {Object.keys(this.props.purchasedProd).length !== 0 && ( */}
-				<div className="cartModalBox">
-					<div className="cartItemDescription">
-						<p className="itemName">
-							AAA
-							{/* {this.props.purchasedProd.product.name} */}
-						</p>
-						<p className="itemDescr">Running Short</p>
-						<p className="itemPriceDigit">$50.00</p>
-						<div className="sizeSelection">
-							<div>XS</div>
-							<div>S</div>
-							<div>M</div>
-							<div>L</div>
+				{this.props.prodProps && this.props.prodProps.product && (
+					<>
+						<div className="cartModalBox">
+							<div className="cartItemDescription">
+								<p className="cartModalItemName">{this.props.prodProps.product.brand}</p>
+								<p className="cartModalItemDescr">{this.props.prodProps.product.name}</p>
+								<p className="cartModalItemPriceDigit">
+									{this.props.prodProps.product.prices[0].currency.symbol}
+									{this.props.prodProps.product.prices[0].amount}
+								</p>
+								<div className="cartModalItemAttr">
+									{Object.keys(this.props.prodProps.product.attributes).length !== 0 &&
+										this.props.prodProps.product.attributes && (
+											<>
+												{this.props.prodProps.product.attributes.map(attr => (
+													<div key={Object.entries(attr)[0][0]}>
+														{/* <p className="cartModalItemAttrName">
+															{Object.entries(attr)[0][0]}:
+														</p> */}
+
+														<div
+															className="cartModalAttributeBox"
+															style={{
+																background: `${
+																	Object.entries(attr)[0][1].indexOf('#') !== -1 &&
+																	Object.entries(attr)[0][1]
+																}`
+															}}>
+															{!(Object.entries(attr)[0][1].indexOf('#') !== -1) &&
+																Object.entries(attr)[0][1]}
+														</div>
+													</div>
+												))}
+											</>
+										)}
+								</div>
+							</div>
+							<div className="cartItemRightSide">
+								<div className="cartModalQuantity">
+									<button>+</button>
+									<p>1</p>
+									<button>-</button>
+								</div>
+								<div className="cartModalProdImg">
+									<img alt="product_image" src={this.props.prodProps.product.gallery[0]} />
+								</div>
+							</div>
 						</div>
-					</div>
-					<div className="cartItemRightSide">
-						<div className="quantity">
-							<button>+</button>
-							<p>1</p>
-							<button>-</button>
-						</div>
-						<div className="prodImg">
-							<img
-								className="productImage"
-								alt="product_image"
-								src={require('../../assets/Product InsideCart.png')}
-							/>
-						</div>
-					</div>
-				</div>
+					</>
+				)}
 			</>
 		);
 	}

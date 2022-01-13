@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { ReactComponent as ShopLogo } from '../../assets/a-logo.svg';
 import CurrencyModal from '../currencyModal/CurrencyModal';
 import ModalCart from '../modalCart/ModalCart';
-import './Header.css';
+import './header.css';
 
 import { NavLink } from 'react-router-dom';
 

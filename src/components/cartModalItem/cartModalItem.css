@@ -3,8 +3,9 @@
 	justify-content: space-between;
 	margin-bottom: 41px;
 }
-.cartModalBox .itemName {
-	margin-top: 25px;
+
+.cartModalItemName {
+	margin: 0 0 5px 0;
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: 300;
@@ -12,8 +13,8 @@
 	line-height: 160%;
 }
 
-.cartModalBox .itemDescr {
-	margin-top: 2px;
+.cartModalItemDescr {
+	margin: 2px 0 11px 0;
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: 300;
@@ -21,8 +22,8 @@
 	line-height: 160%;
 }
 
-.cartModalBox .itemPriceDigit {
-	margin-top: 8px;
+.cartModalItemPriceDigit {
+	margin: 0;
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: 500;
@@ -30,27 +31,65 @@
 	line-height: 160%;
 }
 
-.cartModalBox .sizeSelection {
-	margin-top: 22px;
+.cartModalItemAttr {
+	display: flex;
+	margin: 8px 5px 0 0;
 	column-gap: 8px;
 }
 
-.cartModalBox .sizeSelection div {
-	width: 24px;
+.cartModalAttributeBox {
+	margin: 0;
+	padding: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	height: 24px;
-	line-height: 22px;
+	border: 1px solid #1d1f22;
+	text-align: center;
+	font-family: Source Sans Pro;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 160%;
 }
 
-.cartModalBox .quantity {
+/* .cartModalItemAttrName {
+	margin: 0;
+	color: #1d1f22;
+	font-family: Source Sans Pro;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 160%;
+} */
+
+.cartModalQuantity {
+	height: 137px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 	height: 137px;
 }
 
-.cartModalBox .quantity button {
+.cartModalQuantity button {
 	width: 24px;
 	height: 24px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	overflow: hidden;
+	outline: none;
 }
 
-.cartModalBox .prodImg .productImage {
+.cartModalProdImg {
 	width: 105px;
 	height: 137px;
+}
+
+.cartModalProdImg img {
+	width: 105px;
+	height: 137px;
+	object-fit: contain;
 }
