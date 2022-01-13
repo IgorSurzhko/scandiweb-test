@@ -3,6 +3,7 @@
 
 	height: 230px;
 	display: flex;
+
 	justify-content: space-between;
 	align-items: center;
 }
@@ -25,7 +26,7 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	cursor: pointer;
-	overflow: hidden;
+
 	outline: none;
 }
 
@@ -44,7 +45,6 @@ hr {
 }
 .cartItemImg img {
 	width: 200px;
-
 	object-fit: contain;
 }
 
@@ -98,7 +98,7 @@ hr {
 .cartItemAttributes {
 	display: flex;
 	word-wrap: break-word;
-	justify-content: space-between;
+
 	align-items: end;
 }
 

@@ -20,11 +20,11 @@ export default class ModalCart extends Component {
 
 	render() {
 		if (!this.props.show) {
-			document.body.style.overflow = 'scroll';
+			document.body.style.overflowY = 'scroll';
 			return null;
 		}
 		if (this.props.show) {
-			document.body.style.overflow = 'hidden';
+			document.body.style.overflowY = 'hidden';
 		}
 		return (
 			<>

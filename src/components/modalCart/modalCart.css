@@ -15,7 +15,6 @@
 	left: 0px;
 	top: 80px;
 	z-index: 100;
-	overflow: hidden;
 
 	background: rgba(57, 55, 72, 0.22);
 }
@@ -69,7 +68,7 @@
 	background-color: transparent;
 	background-repeat: no-repeat;
 	cursor: pointer;
-	overflow: hidden;
+
 	outline: none;
 	text-transform: uppercase;
 }
