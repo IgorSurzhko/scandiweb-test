@@ -1,7 +1,46 @@
 import { Component } from 'react';
 import './cartModalItem.css';
+import changeQty from '../../utils/productQtyChanger';
 
 export default class CartModalItem extends Component {
+	constructor() {
+		super();
+		this.state = {
+			qty: 1
+		};
+	}
+	componentDidMount() {
+		if (this.props.prodProps.qty.length !== 0) {
+			this.setState({
+				qty: this.props.prodProps.qty
+			});
+		}
+	}
+
+	increaseQty = () => {
+		this.setState(
+			prevState => ({
+				qty: prevState.qty + 1
+			}),
+			() => {
+				changeQty(this.props.prodProps.prodId, this.state.qty);
+			}
+		);
+	};
+
+	decreaseQty = () => {
+		if (this.state.qty > 0) {
+			this.setState(
+				prevState => ({
+					qty: prevState.qty - 1
+				}),
+				() => {
+					changeQty(this.props.prodProps.prodId, this.state.qty);
+				}
+			);
+		}
+	};
+
 	render() {
 		return (
 			<>
@@ -44,9 +83,9 @@ export default class CartModalItem extends Component {
 							</div>
 							<div className="cartItemRightSide">
 								<div className="cartModalQuantity">
-									<button>+</button>
-									<p>{this.props.prodProps.qty}</p>
-									<button>-</button>
+									<button onClick={this.increaseQty}>+</button>
+									<p>{this.state.qty}</p>
+									<button onClick={this.decreaseQty}>-</button>
 								</div>
 								<div className="cartModalProdImg">
 									<img alt="product_image" src={this.props.prodProps.gallery[0]} />

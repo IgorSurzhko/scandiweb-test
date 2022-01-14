@@ -8,7 +8,8 @@ export default class ModalCart extends Component {
 	constructor() {
 		super();
 		this.state = {
-			purchasedProd: ''
+			purchasedProd: [],
+			totalPrice: 0
 		};
 	}
 	static contextType = ProductContext;
@@ -16,11 +17,19 @@ export default class ModalCart extends Component {
 	async componentDidMount() {
 		const product = await this.context;
 		this.setState({ purchasedProd: product });
-	}
 
-	totalPrice = () => {
-		console.log(this.state.some);
-	};
+		if (Object.keys(this.state.purchasedProd.product).length !== 0) {
+			let sum = [];
+			this.state.purchasedProd.product.map(element => sum.push(element.prices[0].amount));
+			let total = sum.reduce(function (previousValue, currentValue) {
+				return previousValue + currentValue;
+			});
+
+			this.setState({
+				totalPrice: total.toFixed(2)
+			});
+		}
+	}
 
 	render() {
 		if (!this.props.show) {
@@ -37,7 +46,7 @@ export default class ModalCart extends Component {
 					<>
 						<div className="overlay"></div>
 						<div className="modal">
-							<div className="modalHeader">
+							<div className="modalHeader" onClick={this.totalPrice}>
 								<span>My Cart,</span>{' '}
 								<span>{Object.keys(this.state.purchasedProd.product).length}</span> items
 							</div>
@@ -53,7 +62,7 @@ export default class ModalCart extends Component {
 							</div>
 							<div className="totalPrice">
 								<div>Total</div>
-								<div>$100.00</div>
+								<div>${this.state.totalPrice}</div>
 							</div>
 							<div className="buttons">
 								<Link to="/cart">
