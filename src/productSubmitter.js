@@ -1,5 +1,5 @@
 export default function productSubmitter(state, context) {
-	const { product, setProduct } = context;
+	const { setProduct } = context;
 	const { name, gallery, brand, prices } = state.product;
 
 	const prodAttrFiltered = state.prodAttr.filter(element => {
@@ -9,7 +9,7 @@ export default function productSubmitter(state, context) {
 		return false;
 	});
 	let prodId = Date.now();
-	const newProduct = { prodId, name, gallery, brand, qty: 1, prices, attributes: prodAttrFiltered };
+	const newProduct = [{ prodId, name, gallery, brand, qty: 1, prices, attributes: prodAttrFiltered }];
 	setProduct(newProduct);
 
 	localStorage.setItem(prodId, JSON.stringify(newProduct));

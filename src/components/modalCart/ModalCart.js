@@ -8,7 +8,7 @@ export default class ModalCart extends Component {
 	constructor() {
 		super();
 		this.state = {
-			purchasedProd: {}
+			purchasedProd: [{}]
 		};
 	}
 	static contextType = ProductContext;
@@ -16,9 +16,12 @@ export default class ModalCart extends Component {
 	async componentDidMount() {
 		const product = await this.context;
 		this.setState({ purchasedProd: product });
+		console.log('modal', this.state.purchasedProd.product);
 	}
 
-	totalPrice = () => {};
+	totalPrice = () => {
+		console.log(this.state.some);
+	};
 
 	render() {
 		if (!this.props.show) {
@@ -31,32 +34,38 @@ export default class ModalCart extends Component {
 
 		return (
 			<>
-				<div className="overlay"></div>
-				<div className="modal">
-					<div className="modalHeader">
-						<span>My Cart,</span> <span>{Object.keys(this.state.purchasedProd.product).length}</span> items
-					</div>
-					<div className="modalWrapper">
-						{this.state.purchasedProd.product &&
-							this.state.purchasedProd.product.map(element => (
-								<CartModalItem key={element.prodId} prodProps={element} />
-							))}
-						{Object.keys(this.state.purchasedProd.product).length === 0 && (
-							<p> There is no items in your cart</p>
-						)}
-					</div>
-					<div className="totalPrice">
-						<div>Total</div>
-						<div>$100.00</div>
-					</div>
-					<div className="buttons">
-						<Link to="/cart">
-							<button>View Cart</button>
-						</Link>
+				{this.state.purchasedProd.product && (
+					<>
+						<div className="overlay"></div>
+						<div className="modal">
+							<div className="modalHeader">
+								<span>My Cart,</span>{' '}
+								<span>{Object.keys(this.state.purchasedProd.product).length}</span> items
+							</div>
+							<div className="modalWrapper">
+								{this.state.purchasedProd.product.map(element => (
+									<CartModalItem key={element.prodId} prodProps={element} />
+								))}
+								{Object.keys(this.state.purchasedProd.product).length === 0 && (
+									<div className="modalMessage">
+										<p> There is no items in your cart</p>
+									</div>
+								)}
+							</div>
+							<div className="totalPrice">
+								<div>Total</div>
+								<div>$100.00</div>
+							</div>
+							<div className="buttons">
+								<Link to="/cart">
+									<button>View Cart</button>
+								</Link>
 
-						<button> Check Out</button>
-					</div>
-				</div>
+								<button> Check Out</button>
+							</div>
+						</div>
+					</>
+				)}
 			</>
 		);
 	}

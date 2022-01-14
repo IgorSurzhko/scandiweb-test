@@ -11,8 +11,6 @@ import { useQuery } from '@apollo/client';
 import { ProductProvider } from './utils/productContext';
 
 function App() {
-	const product = {};
-
 	function QueryFormat(queryVar) {
 		const fetchedQueryVar = useQuery(CATEGORY_QUERY, { variables: { title: queryVar } });
 		return fetchedQueryVar;
@@ -26,7 +24,7 @@ function App() {
 	if (allError | clothesError | techError) return <p>Error :(</p>;
 
 	return (
-		<ProductProvider product={product}>
+		<ProductProvider>
 			<Router>
 				<Routes>
 					<Route path="/" element={<Navigate to="/all" />} />
