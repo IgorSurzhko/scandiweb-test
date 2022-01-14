@@ -9,7 +9,7 @@ export default class Cart extends Component {
 	constructor() {
 		super();
 		this.state = {
-			purchasedProd: {}
+			purchasedProd: []
 		};
 	}
 	static contextType = ProductContext;
@@ -17,7 +17,6 @@ export default class Cart extends Component {
 	async componentDidMount() {
 		const product = await this.context;
 		this.setState({ purchasedProd: product });
-		console.log('cart', this.state.purchasedProd.product);
 	}
 
 	render() {

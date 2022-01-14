@@ -3,7 +3,6 @@ import checkQuantity from './serializedLocal';
 
 const ProductContext = React.createContext();
 let retrievedObject = checkQuantity();
-console.log('context', retrievedObject);
 class ProductProvider extends Component {
 	// Context state
 	state = {
@@ -11,8 +10,16 @@ class ProductProvider extends Component {
 	};
 
 	// Method to update state
-	setProduct = product => {
-		this.setState(prevState => ({ product }));
+	setProduct = newProduct => {
+		if (Object.keys(this.state.product).length === 0) {
+			this.setState({
+				product: [newProduct]
+			});
+		} else {
+			this.setState(prevState => ({
+				product: [...prevState.product, newProduct]
+			}));
+		}
 	};
 
 	render() {

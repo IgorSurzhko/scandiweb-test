@@ -8,7 +8,7 @@ export default class ModalCart extends Component {
 	constructor() {
 		super();
 		this.state = {
-			purchasedProd: [{}]
+			purchasedProd: ''
 		};
 	}
 	static contextType = ProductContext;
@@ -16,7 +16,6 @@ export default class ModalCart extends Component {
 	async componentDidMount() {
 		const product = await this.context;
 		this.setState({ purchasedProd: product });
-		console.log('modal', this.state.purchasedProd.product);
 	}
 
 	totalPrice = () => {

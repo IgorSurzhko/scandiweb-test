@@ -8,7 +8,7 @@ export default class CartModalItem extends Component {
 				{this.props.prodProps && (
 					<>
 						<div className="cartModalBox">
-							<div className="cartItemDescription">
+							<div className="cartModalItemDescription">
 								<p className="cartModalItemName">{this.props.prodProps.brand}</p>
 								<p className="cartModalItemDescr">{this.props.prodProps.name}</p>
 								<p className="cartModalItemPriceDigit">

@@ -15,7 +15,7 @@
 }
 
 .cartModalItemDescr {
-	margin: 2px 0 10px 0;
+	margin: 0;
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: 300;
@@ -36,6 +36,13 @@
 	display: flex;
 	word-wrap: break-word;
 	align-items: end;
+}
+
+.cartModalItemDescription {
+	height: 137px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .cartModalAttributeBox {

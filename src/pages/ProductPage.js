@@ -4,8 +4,9 @@ import { productFetch } from '../utils/productFetch';
 import ProductContext from '../utils/productContext';
 import './productPage.css';
 // import { Link } from 'react-router-dom';
-import ModalInformation from '../components/modalInformation/ModalInformation';
-import productSubmitter from '../productSubmitter';
+// import ModalInformation from '../components/modalInformation/ModalInformation';
+import productSubmitter from '../utils/productSubmitter';
+import { Link } from 'react-router-dom';
 
 export default class ProductPage extends Component {
 	constructor(props) {
@@ -44,18 +45,18 @@ export default class ProductPage extends Component {
 		this.setState({ bigImgSrc: e.target.src });
 	};
 
-	showModal = () => {
-		this.setState({
-			modalShow: true
-		});
-		this.submitHandler();
-	};
+	// showModal = () => {
+	// 	this.setState({
+	// 		modalShow: true
+	// 	});
+	// 	this.submitHandler();
+	// };
 
-	hideModal = () => {
-		this.setState({
-			modalShow: false
-		});
-	};
+	// hideModal = () => {
+	// 	this.setState({
+	// 		modalShow: false
+	// 	});
+	// };
 
 	render() {
 		return (
@@ -110,18 +111,22 @@ export default class ProductPage extends Component {
 								{this.state.product.prices[0].currency.symbol}
 								{this.state.product.prices[0].amount}
 							</p>
-							{/* 
-							<Link to="/cart" onClick={this.submitHandler}>
-								<button onClick={this.showModal}> add to cart</button>
-							</Link> */}
 
-							<button onClick={this.showModal}> add to cart</button>
+							<Link to="/cart" onClick={this.submitHandler}>
+								<button
+								// onClick={this.showModal}
+								>
+									add to cart
+								</button>
+							</Link>
+
+							{/* <button onClick={this.showModal}> add to cart</button> */}
 
 							<div className="itemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
 						</div>
 					</div>
 				)}
-				<ModalInformation show={this.state.modalShow} changeShow={this.hideModal} />
+				{/* <ModalInformation show={this.state.modalShow} changeShow={this.hideModal} /> */}
 			</>
 		);
 	}
