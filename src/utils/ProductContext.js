@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import checkQuantity from './serializedLocal';
 
 const ProductContext = React.createContext();
-let retrievedObject = localStorage.getItem('productLocalStor');
-
+let retrievedObject = checkQuantity();
+console.log('context', retrievedObject);
 class ProductProvider extends Component {
 	// Context state
 	state = {
-		product: JSON.parse(retrievedObject)
+		product: retrievedObject
 	};
 
 	// Method to update state

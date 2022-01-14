@@ -3,26 +3,23 @@ import './cartModalItem.css';
 
 export default class CartModalItem extends Component {
 	render() {
-		if (Object.keys(this.props.prodProps).length === 0 || this.props.prodProps.product === null) {
-			return <p> There no items in your cart</p>;
-		}
 		return (
 			<>
-				{this.props.prodProps && this.props.prodProps.product && (
+				{this.props.prodProps && (
 					<>
 						<div className="cartModalBox">
 							<div className="cartItemDescription">
-								<p className="cartModalItemName">{this.props.prodProps.product.brand}</p>
-								<p className="cartModalItemDescr">{this.props.prodProps.product.name}</p>
+								<p className="cartModalItemName">{this.props.prodProps.brand}</p>
+								<p className="cartModalItemDescr">{this.props.prodProps.name}</p>
 								<p className="cartModalItemPriceDigit">
-									{this.props.prodProps.product.prices[0].currency.symbol}
-									{this.props.prodProps.product.prices[0].amount}
+									{this.props.prodProps.prices[0].currency.symbol}
+									{this.props.prodProps.prices[0].amount}
 								</p>
 								<div className="cartModalItemAttr">
-									{Object.keys(this.props.prodProps.product.attributes).length !== 0 &&
-										this.props.prodProps.product.attributes && (
+									{Object.keys(this.props.prodProps.attributes).length !== 0 &&
+										this.props.prodProps.attributes && (
 											<>
-												{this.props.prodProps.product.attributes.map(attr => (
+												{this.props.prodProps.attributes.map(attr => (
 													<div key={Object.entries(attr)[0][0]}>
 														<p className="cartModalItemAttrName">
 															{Object.entries(attr)[0][0]}:
@@ -48,11 +45,11 @@ export default class CartModalItem extends Component {
 							<div className="cartItemRightSide">
 								<div className="cartModalQuantity">
 									<button>+</button>
-									<p>1</p>
+									<p>{this.props.prodProps.qty}</p>
 									<button>-</button>
 								</div>
 								<div className="cartModalProdImg">
-									<img alt="product_image" src={this.props.prodProps.product.gallery[0]} />
+									<img alt="product_image" src={this.props.prodProps.gallery[0]} />
 								</div>
 							</div>
 						</div>

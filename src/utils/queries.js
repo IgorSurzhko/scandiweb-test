@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-import { client } from './ApolloClient';
 
 export const CATEGORY_QUERY = gql`
 	query FetchCategory($title: String!) {
@@ -19,38 +18,3 @@ export const CATEGORY_QUERY = gql`
 		}
 	}
 `;
-
-export function productFetch(id) {
-	return client.query({
-		query: gql`
-				query GetRates {
-					product(id: "${id}") {
-						id
-            name
-            gallery
-            description
-            attributes {
-              id
-              name
-              type
-              items {
-                displayValue
-                value
-                id
-                
-              }
-            }
-            prices{
-              currency{
-                label
-                symbol
-              }
-              amount
-              
-            }
-            brand
-					}
-				}
-			`
-	});
-}

@@ -1,15 +1,20 @@
 .modal {
 	padding: 8px 16px 8px 16px;
+
 	position: absolute;
 	top: 80px;
 	right: 87px;
-	width: 325px;
+	width: 350px;
 	background: white;
 	z-index: 20000;
 }
+.modalWrapper {
+	max-height: 600px;
+	overflow-y: auto;
+}
 
 p {
-	margin-bottom: 23px;
+	margin: 0 0 23px 0;
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: bold;

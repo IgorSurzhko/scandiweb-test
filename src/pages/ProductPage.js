@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import Header from '../components/header/Header';
-import { productFetch } from '../utils/Queries';
-import ProductContext from '../utils/ProductContext';
+import { productFetch } from '../utils/productFetch';
+import ProductContext from '../utils/productContext';
 import './productPage.css';
 // import { Link } from 'react-router-dom';
 import ModalInformation from '../components/modalInformation/ModalInformation';
+import productSubmitter from '../productSubmitter';
 
 export default class ProductPage extends Component {
 	constructor(props) {
@@ -36,31 +37,24 @@ export default class ProductPage extends Component {
 	};
 
 	submitHandler = () => {
-		const { product, setProduct } = this.context;
-		const { name, gallery, brand, prices } = this.state.product;
-
-		const prodAttrFiltered = this.state.prodAttr.filter(element => {
-			if (Object.keys(element).length !== 0) {
-				return true;
-			}
-			return false;
-		});
-
-		const newProduct = { name, gallery, brand, prices, attributes: prodAttrFiltered };
-		setProduct(newProduct);
-
-		localStorage.setItem(`${name + brand}`, JSON.stringify(newProduct));
+		productSubmitter(this.state, this.context);
 	};
 
 	bigImgChanger = e => {
 		this.setState({ bigImgSrc: e.target.src });
 	};
 
-	showModal = bool => {
+	showModal = () => {
 		this.setState({
-			modalShow: bool
+			modalShow: true
 		});
 		this.submitHandler();
+	};
+
+	hideModal = () => {
+		this.setState({
+			modalShow: false
+		});
 	};
 
 	render() {
@@ -127,7 +121,7 @@ export default class ProductPage extends Component {
 						</div>
 					</div>
 				)}
-				<ModalInformation show={this.state.modalShow} changeShow={this.showModal} />
+				<ModalInformation show={this.state.modalShow} changeShow={this.hideModal} />
 			</>
 		);
 	}

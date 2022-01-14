@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import CartModalItem from '../cartModalItem/CartModalItem';
-import ProductContext from '../../utils/ProductContext';
+import ProductContext from '../../utils/productContext';
 import './modalCart.css';
 import { Link } from 'react-router-dom';
 
@@ -18,6 +18,8 @@ export default class ModalCart extends Component {
 		this.setState({ purchasedProd: product });
 	}
 
+	totalPrice = () => {};
+
 	render() {
 		if (!this.props.show) {
 			document.body.style.overflowY = 'scroll';
@@ -32,10 +34,17 @@ export default class ModalCart extends Component {
 				<div className="overlay"></div>
 				<div className="modal">
 					<div className="modalHeader">
-						<span>My Cart,</span> <span>2</span> items
+						<span>My Cart,</span> <span>{Object.keys(this.state.purchasedProd.product).length}</span> items
 					</div>
-					<CartModalItem prodProps={this.state.purchasedProd} />
-					{/* TODO: MORE ITEMS COMPONENTS  */}
+					<div className="modalWrapper">
+						{this.state.purchasedProd.product &&
+							this.state.purchasedProd.product.map(element => (
+								<CartModalItem key={element.prodId} prodProps={element} />
+							))}
+						{Object.keys(this.state.purchasedProd.product).length === 0 && (
+							<p> There is no items in your cart</p>
+						)}
+					</div>
 					<div className="totalPrice">
 						<div>Total</div>
 						<div>$100.00</div>

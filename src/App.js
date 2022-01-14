@@ -2,13 +2,13 @@ import './App.css';
 import Cart from './pages/Cart';
 import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
-import { CATEGORY_QUERY } from './utils/Queries';
+import { CATEGORY_QUERY } from './utils/queries';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import { useQuery } from '@apollo/client';
 
-import { ProductProvider } from './utils/ProductContext';
+import { ProductProvider } from './utils/productContext';
 
 function App() {
 	const product = {};

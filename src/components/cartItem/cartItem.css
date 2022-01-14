@@ -47,6 +47,7 @@ hr {
 }
 .cartItemImg img {
 	width: 200px;
+	height: 230px;
 	object-fit: contain;
 }
 

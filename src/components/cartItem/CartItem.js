@@ -7,22 +7,22 @@ export default class CartItem extends Component {
 	render() {
 		return (
 			<>
-				{this.props.prodProps && this.props.prodProps.product && (
+				{this.props.prodProps && (
 					<>
 						<hr />
 						<div className="cartItemBox">
 							<div className="cartItemDescription">
-								<p className="cartItemName">{this.props.prodProps.product.brand}</p>
-								<p className="cartItemDescr">{this.props.prodProps.product.name}</p>
+								<p className="cartItemName">{this.props.prodProps.brand}</p>
+								<p className="cartItemDescr">{this.props.prodProps.name}</p>
 								<p className="cartItemPriceDigit">
-									{this.props.prodProps.product.prices[0].currency.symbol}
-									{this.props.prodProps.product.prices[0].amount}
+									{this.props.prodProps.prices[0].currency.symbol}
+									{this.props.prodProps.prices[0].amount}
 								</p>
 								<div className="cartItemAttributes">
-									{Object.keys(this.props.prodProps.product.attributes).length !== 0 &&
-										this.props.prodProps.product.attributes && (
+									{Object.keys(this.props.prodProps.attributes).length !== 0 &&
+										this.props.prodProps.attributes && (
 											<>
-												{this.props.prodProps.product.attributes.map(attr => (
+												{this.props.prodProps.attributes.map(attr => (
 													<div key={Object.entries(attr)[0][0]}>
 														<p className="cartItemAttributesName">
 															{Object.entries(attr)[0][0]}:
@@ -52,7 +52,7 @@ export default class CartItem extends Component {
 									<button>-</button>
 								</div>
 								<div className="cartItemImg">
-									<img alt="product_image" src={this.props.prodProps.product.gallery[0]} />
+									<img alt="product_image" src={this.props.prodProps.gallery[0]} />
 									<div className="arrowLeft">
 										<ArrLeft />
 									</div>
