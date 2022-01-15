@@ -1,20 +1,22 @@
 import { Component } from 'react';
-import './cartModalItem.css';
+import './ModalCartItem.css';
 import changeQty from '../../utils/productQtyChanger';
+import ProductContext from '../../utils/productContext';
 
 export default class CartModalItem extends Component {
 	constructor() {
 		super();
 		this.state = {
-			qty: 1
+			qty: []
 		};
 	}
+
+	static contextType = ProductContext;
+
 	componentDidMount() {
-		if (this.props.prodProps.qty.length !== 0) {
-			this.setState({
-				qty: this.props.prodProps.qty
-			});
-		}
+		const { qty } = this.context;
+		this.setState({ qty });
+		console.log('in modal', qty);
 	}
 
 	increaseQty = () => {
@@ -84,7 +86,13 @@ export default class CartModalItem extends Component {
 							<div className="cartItemRightSide">
 								<div className="cartModalQuantity">
 									<button onClick={this.increaseQty}>+</button>
-									<p>{this.state.qty}</p>
+									<p>
+										{this.state.qty === 1
+											? 1
+											: this.state.qty.map(
+													element => element[this.props.prodProps.prodId.toString()]
+											  )}
+									</p>
 									<button onClick={this.decreaseQty}>-</button>
 								</div>
 								<div className="cartModalProdImg">

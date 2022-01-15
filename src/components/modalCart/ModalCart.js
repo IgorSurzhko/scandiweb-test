@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import CartModalItem from '../cartModalItem/CartModalItem';
+import CartModalItem from '../ModalCartItem/ModalCartItem';
 import ProductContext from '../../utils/productContext';
 import './modalCart.css';
 import { Link } from 'react-router-dom';

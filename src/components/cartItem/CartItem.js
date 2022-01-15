@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { ReactComponent as ArrLeft } from '../../assets/aLeft.svg';
 import { ReactComponent as ArrRight } from '../../assets/aRight.svg';
 import changeQty from '../../utils/productQtyChanger';
+import ProductContext from '../../utils/productContext';
 import './cartItem.css';
 
 export default class CartItem extends Component {
@@ -11,6 +12,8 @@ export default class CartItem extends Component {
 			qty: 1
 		};
 	}
+	static contextType = ProductContext;
+
 	componentDidMount() {
 		if (this.props.prodProps.qty.length !== 0) {
 			this.setState({
@@ -25,7 +28,7 @@ export default class CartItem extends Component {
 				qty: prevState.qty + 1
 			}),
 			() => {
-				changeQty(this.props.prodProps.prodId, this.state.qty);
+				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
 			}
 		);
 	};
@@ -37,7 +40,7 @@ export default class CartItem extends Component {
 					qty: prevState.qty - 1
 				}),
 				() => {
-					changeQty(this.props.prodProps.prodId, this.state.qty);
+					changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
 				}
 			);
 		}
