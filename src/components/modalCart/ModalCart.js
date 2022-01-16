@@ -20,6 +20,8 @@ export default class ModalCart extends Component {
 
 		if (Object.keys(this.state.purchasedProd.product).length !== 0) {
 			let sum = [];
+			console.log(this.state.purchasedProd);
+
 			this.state.purchasedProd.product.map(element => sum.push(element.prices[0].amount * element.qty));
 			let total = sum.reduce(function (previousValue, currentValue) {
 				return previousValue + currentValue;
@@ -29,17 +31,22 @@ export default class ModalCart extends Component {
 				totalPrice: total.toFixed(2)
 			});
 		}
+		console.log(context.product.length);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		const context = this.context;
 		if (prevState.purchasedProd.product !== context.product) {
-			let sum = [];
-			context.product.map(element => sum.push(element.prices[0].amount * element.qty));
-			let total = sum.reduce(function (previousValue, currentValue) {
-				return previousValue + currentValue;
-			});
-			this.setState({ purchasedProd: context, totalPrice: total.toFixed(2) });
+			if (context.product.length > 0) {
+				let sum = [];
+				context.product.map(element => sum.push(element.prices[0].amount * element.qty));
+				let total = sum.reduce(function (previousValue, currentValue) {
+					return previousValue + currentValue;
+				});
+				this.setState({ purchasedProd: context, totalPrice: total.toFixed(2) });
+			} else {
+				this.setState({ purchasedProd: context, totalPrice: 0 });
+			}
 		}
 	}
 
@@ -78,7 +85,7 @@ export default class ModalCart extends Component {
 										delete={this.deleteProduct}
 									/>
 								))}
-								{Object.keys(this.state.purchasedProd.product).length === 0 && (
+								{this.state.purchasedProd.product.length === 0 && (
 									<div className="modalMessage">
 										<p> There is no items in your cart</p>
 									</div>
