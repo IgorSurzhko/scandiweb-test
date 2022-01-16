@@ -3,6 +3,10 @@
 	display: flex;
 }
 
+.productBox h1 {
+	line-height: 35px;
+}
+
 .miniPicBox {
 	display: flex;
 	flex-direction: column;

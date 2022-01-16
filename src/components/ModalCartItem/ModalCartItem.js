@@ -1,13 +1,13 @@
 import { Component } from 'react';
-import './ModalCartItem.css';
 import changeQty from '../../utils/productQtyChanger';
 import ProductContext from '../../utils/productContext';
+import './ModalCartItem.css';
 
-export default class CartModalItem extends Component {
+export default class ModalCartItem extends Component {
 	constructor() {
 		super();
 		this.state = {
-			qty: []
+			qty: 1
 		};
 	}
 
@@ -15,8 +15,11 @@ export default class CartModalItem extends Component {
 
 	componentDidMount() {
 		const { qty } = this.context;
-		this.setState({ qty });
-		console.log('in modal', qty);
+		const currentId = this.props.prodProps.prodId.toString();
+		if (qty.find(element => element[currentId])) {
+			const foundQty = qty.find(element => element[currentId]);
+			this.setState({ qty: Object.values(foundQty).toString() });
+		}
 	}
 
 	increaseQty = () => {
@@ -25,7 +28,7 @@ export default class CartModalItem extends Component {
 				qty: prevState.qty + 1
 			}),
 			() => {
-				changeQty(this.props.prodProps.prodId, this.state.qty);
+				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
 			}
 		);
 	};
@@ -37,7 +40,7 @@ export default class CartModalItem extends Component {
 					qty: prevState.qty - 1
 				}),
 				() => {
-					changeQty(this.props.prodProps.prodId, this.state.qty);
+					changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
 				}
 			);
 		}
@@ -86,13 +89,7 @@ export default class CartModalItem extends Component {
 							<div className="cartItemRightSide">
 								<div className="cartModalQuantity">
 									<button onClick={this.increaseQty}>+</button>
-									<p>
-										{this.state.qty === 1
-											? 1
-											: this.state.qty.map(
-													element => element[this.props.prodProps.prodId.toString()]
-											  )}
-									</p>
+									<p>{this.state.qty}</p>
 									<button onClick={this.decreaseQty}>-</button>
 								</div>
 								<div className="cartModalProdImg">

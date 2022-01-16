@@ -29,11 +29,10 @@ class ProductProvider extends Component {
 				qty: [qtyObj]
 			});
 		} else if (this.state.qty.findIndex(obj => Object.keys(obj)[0] === Object.keys(qtyObj)[0]) !== -1) {
-			console.log('id', Object.keys(qtyObj)[0]);
 			this.setState(prevState => ({
 				qty: [
-					...prevState.qty.filter(item => {
-						return Object.keys(item)[0] !== Object.keys(qtyObj)[0];
+					...prevState.qty.filter(element => {
+						return Object.keys(element)[0] !== Object.keys(qtyObj)[0];
 					}),
 					qtyObj
 				]
@@ -45,12 +44,17 @@ class ProductProvider extends Component {
 		}
 	};
 
+	deleteProductContext = filteredProd => {
+		this.setState({ product: filteredProd.product });
+	};
+
 	render() {
 		const { children } = this.props;
 		const { product } = this.state;
 		const { qty } = this.state;
 		const { setProduct } = this;
 		const { setQty } = this;
+		const { deleteProductContext } = this;
 
 		return (
 			<ProductContext.Provider
@@ -58,7 +62,8 @@ class ProductProvider extends Component {
 					product,
 					qty,
 					setProduct,
-					setQty
+					setQty,
+					deleteProductContext
 				}}>
 				{children}
 			</ProductContext.Provider>

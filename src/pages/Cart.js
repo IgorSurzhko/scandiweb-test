@@ -14,10 +14,18 @@ export default class Cart extends Component {
 	}
 	static contextType = ProductContext;
 
-	async componentDidMount() {
-		const product = await this.context;
-		this.setState({ purchasedProd: product });
+	componentDidMount() {
+		const context = this.context;
+		this.setState({ purchasedProd: context }, () => {});
 	}
+
+	deleteProduct = id => {
+		const { deleteProductContext } = this.context;
+		const filteredProd = { ...this.state.purchasedProd };
+		filteredProd.product = filteredProd.product.filter(element => element.prodId !== id);
+		this.setState({ purchasedProd: filteredProd });
+		deleteProductContext(filteredProd);
+	};
 
 	render() {
 		return (
@@ -26,7 +34,7 @@ export default class Cart extends Component {
 				<MainText text="Cart" />
 				{this.state.purchasedProd.product &&
 					this.state.purchasedProd.product.map(element => (
-						<CartItem key={element.prodId} prodProps={element} />
+						<CartItem key={element.prodId} prodProps={element} delete={this.deleteProduct} />
 					))}
 				{this.state.purchasedProd.product && Object.keys(this.state.purchasedProd.product).length === 0 && (
 					<div className="cart">

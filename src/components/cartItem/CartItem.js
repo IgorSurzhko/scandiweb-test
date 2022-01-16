@@ -3,6 +3,7 @@ import { ReactComponent as ArrLeft } from '../../assets/aLeft.svg';
 import { ReactComponent as ArrRight } from '../../assets/aRight.svg';
 import changeQty from '../../utils/productQtyChanger';
 import ProductContext from '../../utils/productContext';
+import deleteProductLocal from '../../utils/deleteProduct';
 import './cartItem.css';
 
 export default class CartItem extends Component {
@@ -15,10 +16,23 @@ export default class CartItem extends Component {
 	static contextType = ProductContext;
 
 	componentDidMount() {
-		if (this.props.prodProps.qty.length !== 0) {
-			this.setState({
-				qty: this.props.prodProps.qty
-			});
+		const { qty } = this.context;
+		const currentId = this.props.prodProps.prodId.toString();
+
+		if (qty.find(element => element[currentId])) {
+			const foundQty = qty.find(element => element[currentId]);
+			this.setState({ qty: Object.values(foundQty).toString() });
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		const { qty } = this.context;
+		const currentId = this.props.prodProps.prodId.toString();
+		if (qty.find(element => element[currentId])) {
+			const foundQty = qty.find(element => element[currentId]);
+			if (prevState.qty !== Object.values(foundQty).toString()) {
+				this.setState({ qty: Object.values(foundQty).toString() });
+			}
 		}
 	}
 
@@ -34,17 +48,20 @@ export default class CartItem extends Component {
 	};
 
 	decreaseQty = () => {
-		if (this.state.qty > 0) {
-			this.setState(
-				prevState => ({
-					qty: prevState.qty - 1
-				}),
-				() => {
-					changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
+		this.setState(
+			prevState => ({
+				qty: prevState.qty - 1
+			}),
+			() => {
+				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
+				if (this.state.qty === 0) {
+					deleteProductLocal(this.props.prodProps.prodId);
+					this.props.delete(this.props.prodProps.prodId);
 				}
-			);
-		}
+			}
+		);
 	};
+
 	render() {
 		return (
 			<>

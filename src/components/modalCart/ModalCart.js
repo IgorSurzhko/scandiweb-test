@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import CartModalItem from '../ModalCartItem/ModalCartItem';
+import ModalCartItem from '../ModalCartItem/ModalCartItem';
 import ProductContext from '../../utils/productContext';
 import './modalCart.css';
 import { Link } from 'react-router-dom';
@@ -15,8 +15,8 @@ export default class ModalCart extends Component {
 	static contextType = ProductContext;
 
 	async componentDidMount() {
-		const product = await this.context;
-		this.setState({ purchasedProd: product });
+		const context = await this.context;
+		this.setState({ purchasedProd: context });
 
 		if (Object.keys(this.state.purchasedProd.product).length !== 0) {
 			let sum = [];
@@ -52,7 +52,7 @@ export default class ModalCart extends Component {
 							</div>
 							<div className="modalWrapper">
 								{this.state.purchasedProd.product.map(element => (
-									<CartModalItem key={element.prodId} prodProps={element} />
+									<ModalCartItem key={element.prodId} prodProps={element} />
 								))}
 								{Object.keys(this.state.purchasedProd.product).length === 0 && (
 									<div className="modalMessage">
