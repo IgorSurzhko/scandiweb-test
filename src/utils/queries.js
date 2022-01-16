@@ -5,9 +5,13 @@ export const CATEGORY_QUERY = gql`
 		category(input: { title: $title }) {
 			products {
 				id
+				brand
 				name
 				inStock
 				gallery
+				attributes {
+					id
+				}
 				prices {
 					currency {
 						label

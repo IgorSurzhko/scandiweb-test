@@ -21,8 +21,6 @@ export default class CartItem extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.qty !== this.props.prodProps.qty) {
-			console.log('prev', prevState.qty);
-			console.log('this.props', this.props.prodProps.qty);
 			this.setState({ qty: this.props.prodProps.qty });
 		}
 	}

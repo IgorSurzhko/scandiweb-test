@@ -64,24 +64,24 @@ export default class ProductPage extends Component {
 				<Header />
 				{!this.state.isLoaded && (
 					<div className="productBox">
-						<div className="miniPicBox">
+						<div className="productBoxMiniPic">
 							{this.state.product.gallery.map(gallery => (
 								<img onClick={this.bigImgChanger} key={gallery} src={gallery} alt="prod pic" />
 							))}
 						</div>
-						<div className="bigPicBox">{<img src={this.state.bigImgSrc} alt="prod main pic" />}</div>
-						<div className="itemAttr">
-							<p className="itemName">{this.state.product.brand}</p>
-							<p className="itemDescr">{this.state.product.name}</p>
+						<div className="productBoxBigPic">{<img src={this.state.bigImgSrc} alt="prod main pic" />}</div>
+						<div className="productBoxItemAttr">
+							<p className="productBoxItemName">{this.state.product.brand}</p>
+							<p className="productBoxItemDescr">{this.state.product.name}</p>
 
 							{Object.keys(this.state.product.attributes).length !== 0 && (
 								<>
 									{this.state.product.attributes.map(attr => (
 										<div key={attr.name}>
-											<p className="itemSize">{attr.name}:</p>
-											<div className="attrSelection">
+											<p className="productBoxItemAttrName">{attr.name}:</p>
+											<div className="productBoxAttrSelection">
 												{attr.items.map(item => (
-													<div className="wrapper" key={item.value}>
+													<div className="productBoxWrapper" key={item.value}>
 														<input
 															onClick={this.attrCheck}
 															type="radio"
@@ -106,8 +106,8 @@ export default class ProductPage extends Component {
 								</>
 							)}
 
-							<p className="itemPrice">Price:</p>
-							<p className="itemPriceDigit">
+							<p className="productBoxItemPrice">Price:</p>
+							<p className="productBoxItemPriceDigit">
 								{this.state.product.prices[0].currency.symbol}
 								{this.state.product.prices[0].amount}
 							</p>
@@ -122,7 +122,7 @@ export default class ProductPage extends Component {
 
 							{/* <button onClick={this.showModal}> add to cart</button> */}
 
-							<div className="itemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
+							<div className="productBoxItemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
 						</div>
 					</div>
 				)}

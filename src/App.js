@@ -28,10 +28,10 @@ function App() {
 			<Router>
 				<Routes>
 					<Route path="/" element={<Navigate to="/all" />} />
-					<Route path="/all" element={<CategoryPage data={allData} />} />
+					<Route path="/all" element={<CategoryPage data={allData} category={'All'} />} />
 					<Route path="/cart" element={<Cart />} />
-					<Route path="/clothes" element={<CategoryPage data={clothesData} />} />
-					<Route path="/tech" element={<CategoryPage data={techData} />} />
+					<Route path="/clothes" element={<CategoryPage data={clothesData} category={'Clothes'} />} />
+					<Route path="/tech" element={<CategoryPage data={techData} category={'Tech'} />} />
 					<Route path="/:category/:id" element={<ProductPage />} />
 					<Route path="/cart" element={<Cart />} />
 				</Routes>

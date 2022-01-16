@@ -8,6 +8,7 @@ export default function productSubmitter(state, context) {
 		}
 		return false;
 	});
+
 	let prodId = Date.now();
 	const newProduct = { prodId, name, gallery, brand, qty: 1, prices, attributes: prodAttrFiltered };
 	setProduct(newProduct);

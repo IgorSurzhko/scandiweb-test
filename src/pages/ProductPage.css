@@ -7,102 +7,45 @@
 	line-height: 35px;
 }
 
-.miniPicBox {
+.productBoxMiniPic {
 	display: flex;
 	flex-direction: column;
 	row-gap: 40px;
 }
-.miniPicBox img {
+.productBoxMiniPic img {
 	object-fit: contain;
 	width: 79px;
 	height: 80px;
 }
 
-.miniPicBox img:hover {
+.productBoxMiniPic img:hover {
 	background: white;
 	filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
 	cursor: pointer;
 }
 
-.bigPicBox {
+.productBoxBigPic {
 	margin-left: 40px;
 	height: 600px;
 }
 
-.bigPicBox img {
+.productBoxBigPic img {
 	object-fit: contain;
 	width: 610px;
 	height: 511px;
 }
 
-.attrSelection {
+.productBoxAttrSelection {
 	display: flex;
 	column-gap: 12px;
 }
 
-.itemAttr {
+.productBoxItemAttr {
 	margin-left: 100px;
 	width: 292px;
 }
 
-.itemName {
-	margin: 0;
-	font-family: Raleway;
-	font-style: normal;
-	font-weight: 600;
-	font-size: 30px;
-	line-height: 27px;
-	color: #1d1f22;
-}
-
-.itemDescr {
-	margin: 16px 0 0 0;
-	font-family: Raleway;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 30px;
-	line-height: 27px;
-	color: #1d1f22;
-}
-
-.itemSize {
-	margin: 43px 0 0 0;
-	color: #1d1f22;
-	font-family: Roboto Condensed;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 18px;
-	line-height: 18px;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
-}
-
-.sizeSelection {
-	margin-top: 8px;
-}
-
-.itemPrice {
-	margin-top: 40px;
-	font-family: Roboto Condensed;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 18px;
-	line-height: 18px;
-	text-transform: uppercase;
-	color: #1d1f22;
-}
-
-.itemPriceDigit {
-	margin: 20px 0 0 0;
-	font-family: Raleway;
-	font-style: normal;
-	font-weight: bold;
-	font-size: 24px;
-	line-height: 18px;
-	color: #1d1f22;
-}
-
-.itemAttr button {
+.productBoxItemAttr button {
 	margin-top: 30px;
 	border: none;
 	background: #5ece7b;
@@ -120,7 +63,60 @@
 	outline: none;
 }
 
-.itemDescrText {
+.productBoxItemName {
+	margin: 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 30px;
+	line-height: 27px;
+	color: #1d1f22;
+}
+
+.productBoxItemDescr {
+	margin: 16px 0 0 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 30px;
+	line-height: 27px;
+	color: #1d1f22;
+}
+
+.productBoxItemAttrName {
+	margin: 43px 0 0 0;
+	color: #1d1f22;
+	font-family: Roboto Condensed;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 18px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.productBoxItemPrice {
+	margin-top: 40px;
+	font-family: Roboto Condensed;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 18px;
+	text-transform: uppercase;
+	color: #1d1f22;
+}
+
+.productBoxItemPriceDigit {
+	margin: 20px 0 0 0;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	line-height: 18px;
+	color: #1d1f22;
+}
+
+.productBoxItemDescrText {
 	margin-top: 40px;
 	font-family: Roboto;
 	font-style: normal;
@@ -130,11 +126,11 @@
 	color: #1d1f22;
 }
 
-input {
+.productBox input {
 	display: none;
 }
 
-label {
+.productBox label {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -151,7 +147,7 @@ label {
 	line-height: 18px;
 }
 
-input:hover + label {
+.productBox input:hover + label {
 	border: 2px solid #000000;
 
 	background: black;
@@ -159,13 +155,13 @@ input:hover + label {
 	cursor: pointer;
 }
 
-input:checked + label {
+.productBox input:checked + label {
 	border: 2px solid #000000;
 	background: black;
 	color: #ffffff;
 }
 
-.wrapper {
+.productBoxWrapper {
 	margin: 10px 0;
 	border: 1px solid #000000;
 }

@@ -20,8 +20,6 @@ export default class ModalCart extends Component {
 
 		if (Object.keys(this.state.purchasedProd.product).length !== 0) {
 			let sum = [];
-			console.log(this.state.purchasedProd);
-
 			this.state.purchasedProd.product.map(element => sum.push(element.prices[0].amount * element.qty));
 			let total = sum.reduce(function (previousValue, currentValue) {
 				return previousValue + currentValue;
@@ -31,7 +29,6 @@ export default class ModalCart extends Component {
 				totalPrice: total.toFixed(2)
 			});
 		}
-		console.log(context.product.length);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -71,7 +68,7 @@ export default class ModalCart extends Component {
 			<>
 				{this.state.purchasedProd.product && (
 					<>
-						<div className="overlay"></div>
+						<div className="overlay" onClick={this.props.onShow}></div>
 						<div className="modal">
 							<div className="modalHeader" onClick={this.totalPrice}>
 								<span>My Cart,</span>{' '}

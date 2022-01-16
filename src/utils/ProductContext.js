@@ -30,9 +30,7 @@ class ProductProvider extends Component {
 			return element;
 		});
 
-		this.setState({ product: mappedProd.product }, () => {
-			console.log('changed', this.state);
-		});
+		this.setState({ product: mappedProd.product });
 	};
 
 	deleteProductContext = filteredProd => {

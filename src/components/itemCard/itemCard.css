@@ -1,7 +1,9 @@
 .cardBox {
-	padding: 16px;
-	display: inline-flex;
+	padding: 16px 16px 0 16px;
+	display: flex;
 	flex-direction: column;
+	text-decoration: none;
+	color: #1d1f22;
 }
 
 .cardBox img {
@@ -12,8 +14,9 @@
 }
 
 .cardBox button {
-	visibility: hidden;
+	/* visibility: hidden; */
 	position: relative;
+	z-index: 5000;
 	padding: 0;
 	bottom: 25px;
 	right: -280px;
@@ -26,19 +29,47 @@
 	cursor: pointer;
 	outline: none;
 }
+
+.itemCardOverlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	width: 354px;
+	height: 330px;
+	background-color: rgba(255, 255, 255, 0.5);
+	font-family: Raleway;
+	text-align: center;
+
+	font-style: normal;
+	font-weight: normal;
+	font-size: 24px;
+	line-height: 160%;
+	color: #8d8f9a;
+}
+
+.itemCardNotActive {
+	color: #8d8f9a;
+	pointer-events: none;
+}
+
 .cardBox button img {
 	width: 52px;
 	height: 52px;
 }
 
-.cardBox button:hover {
+/* .cardBox button:hover {
 	width: 65px;
 	height: 65px;
+} */
+.cardBox button:hover img {
+	width: 60px;
+	height: 60px;
 }
 
 .cardBox .itemName {
 	pointer-events: none;
-	margin: 24px 0 0 0;
+	margin: 0;
 	font-family: Raleway;
 	font-style: normal;
 	font-weight: 300;

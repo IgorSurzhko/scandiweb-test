@@ -12,7 +12,7 @@ export default class Header extends Component {
 		currency: false
 	};
 
-	showModal = e => {
+	showModal = () => {
 		this.setState(prevState => ({
 			show: !prevState.show,
 			currency: prevState.currency
@@ -53,7 +53,7 @@ export default class Header extends Component {
 					</button>
 				</div>
 				<CurrencyModal currency={this.state.currency} />
-				<ModalCart show={this.state.show} />
+				<ModalCart show={this.state.show} onShow={this.showModal} />
 			</div>
 		);
 	}
