@@ -16,30 +16,21 @@ export default class CartItem extends Component {
 	static contextType = ProductContext;
 
 	componentDidMount() {
-		const { qty } = this.context;
-		const currentId = this.props.prodProps.prodId.toString();
-
-		if (qty.find(element => element[currentId])) {
-			const foundQty = qty.find(element => element[currentId]);
-			this.setState({ qty: Object.values(foundQty).toString() });
-		}
+		this.setState({ qty: this.props.prodProps.qty });
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		const { qty } = this.context;
-		const currentId = this.props.prodProps.prodId.toString();
-		if (qty.find(element => element[currentId])) {
-			const foundQty = qty.find(element => element[currentId]);
-			if (prevState.qty !== Object.values(foundQty).toString()) {
-				this.setState({ qty: Object.values(foundQty).toString() });
-			}
+		if (prevState.qty !== this.props.prodProps.qty) {
+			console.log('prev', prevState.qty);
+			console.log('this.props', this.props.prodProps.qty);
+			this.setState({ qty: this.props.prodProps.qty });
 		}
 	}
 
 	increaseQty = () => {
 		this.setState(
 			prevState => ({
-				qty: prevState.qty + 1
+				qty: +prevState.qty + 1
 			}),
 			() => {
 				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
@@ -50,7 +41,7 @@ export default class CartItem extends Component {
 	decreaseQty = () => {
 		this.setState(
 			prevState => ({
-				qty: prevState.qty - 1
+				qty: +prevState.qty - 1
 			}),
 			() => {
 				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);

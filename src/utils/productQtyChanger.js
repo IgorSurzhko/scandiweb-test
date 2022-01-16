@@ -5,7 +5,5 @@ export default function changeQty(id, qty, context) {
 	retrievedObject.qty = qty;
 	localStorage.setItem(id, JSON.stringify(retrievedObject));
 
-	const qtyObj = { [id]: qty };
-
-	setQty(qtyObj);
+	setQty(retrievedObject);
 }

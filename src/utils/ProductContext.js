@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { serializedLocal, serializedLocalQty } from './serializedLocal';
+import { serializedLocal } from './serializedLocal';
 
 const ProductContext = React.createContext();
 let retrievedObject = serializedLocal();
-let qtyObj = serializedLocalQty();
 
 class ProductProvider extends Component {
 	state = {
-		product: retrievedObject,
-		qty: qtyObj
+		product: retrievedObject
 	};
 
 	setProduct = newProduct => {
@@ -23,25 +21,18 @@ class ProductProvider extends Component {
 		}
 	};
 
-	setQty = qtyObj => {
-		if (Object.keys(this.state.qty).length === 0) {
-			this.setState({
-				qty: [qtyObj]
-			});
-		} else if (this.state.qty.findIndex(obj => Object.keys(obj)[0] === Object.keys(qtyObj)[0]) !== -1) {
-			this.setState(prevState => ({
-				qty: [
-					...prevState.qty.filter(element => {
-						return Object.keys(element)[0] !== Object.keys(qtyObj)[0];
-					}),
-					qtyObj
-				]
-			}));
-		} else {
-			this.setState(prevState => ({
-				qty: [...prevState.qty, qtyObj]
-			}));
-		}
+	setQty = qtyChangedObj => {
+		const mappedProd = { ...this.state };
+		mappedProd.product = this.state.product.map(element => {
+			if (element.prodId === qtyChangedObj.prodId) {
+				return { ...element, qty: qtyChangedObj.qty };
+			}
+			return element;
+		});
+
+		this.setState({ product: mappedProd.product }, () => {
+			console.log('changed', this.state);
+		});
 	};
 
 	deleteProductContext = filteredProd => {
@@ -51,7 +42,6 @@ class ProductProvider extends Component {
 	render() {
 		const { children } = this.props;
 		const { product } = this.state;
-		const { qty } = this.state;
 		const { setProduct } = this;
 		const { setQty } = this;
 		const { deleteProductContext } = this;
@@ -60,7 +50,6 @@ class ProductProvider extends Component {
 			<ProductContext.Provider
 				value={{
 					product,
-					qty,
 					setProduct,
 					setQty,
 					deleteProductContext

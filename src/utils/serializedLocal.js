@@ -7,10 +7,3 @@ export function serializedLocal() {
 	}
 	return retrievedProds;
 }
-
-export function serializedLocalQty() {
-	const retrievedProds = serializedLocal();
-	const qtyObj = [];
-	retrievedProds.map(element => qtyObj.push({ [element.prodId]: element.qty }));
-	return qtyObj;
-}

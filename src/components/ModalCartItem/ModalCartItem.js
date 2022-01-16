@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import changeQty from '../../utils/productQtyChanger';
 import ProductContext from '../../utils/productContext';
+import deleteProductLocal from '../../utils/deleteProduct';
 import './ModalCartItem.css';
 
 export default class ModalCartItem extends Component {
@@ -14,18 +15,13 @@ export default class ModalCartItem extends Component {
 	static contextType = ProductContext;
 
 	componentDidMount() {
-		const { qty } = this.context;
-		const currentId = this.props.prodProps.prodId.toString();
-		if (qty.find(element => element[currentId])) {
-			const foundQty = qty.find(element => element[currentId]);
-			this.setState({ qty: Object.values(foundQty).toString() });
-		}
+		this.setState({ qty: this.props.prodProps.qty });
 	}
 
 	increaseQty = () => {
 		this.setState(
 			prevState => ({
-				qty: prevState.qty + 1
+				qty: +prevState.qty + 1
 			}),
 			() => {
 				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
@@ -34,16 +30,18 @@ export default class ModalCartItem extends Component {
 	};
 
 	decreaseQty = () => {
-		if (this.state.qty > 0) {
-			this.setState(
-				prevState => ({
-					qty: prevState.qty - 1
-				}),
-				() => {
-					changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
+		this.setState(
+			prevState => ({
+				qty: +prevState.qty - 1
+			}),
+			() => {
+				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
+				if (this.state.qty === 0) {
+					deleteProductLocal(this.props.prodProps.prodId);
+					this.props.delete(this.props.prodProps.prodId);
 				}
-			);
-		}
+			}
+		);
 	};
 
 	render() {

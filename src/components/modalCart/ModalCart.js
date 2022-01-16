@@ -20,7 +20,7 @@ export default class ModalCart extends Component {
 
 		if (Object.keys(this.state.purchasedProd.product).length !== 0) {
 			let sum = [];
-			this.state.purchasedProd.product.map(element => sum.push(element.prices[0].amount));
+			this.state.purchasedProd.product.map(element => sum.push(element.prices[0].amount * element.qty));
 			let total = sum.reduce(function (previousValue, currentValue) {
 				return previousValue + currentValue;
 			});
@@ -30,6 +30,26 @@ export default class ModalCart extends Component {
 			});
 		}
 	}
+
+	componentDidUpdate(prevProps, prevState) {
+		const context = this.context;
+		if (prevState.purchasedProd.product !== context.product) {
+			let sum = [];
+			context.product.map(element => sum.push(element.prices[0].amount * element.qty));
+			let total = sum.reduce(function (previousValue, currentValue) {
+				return previousValue + currentValue;
+			});
+			this.setState({ purchasedProd: context, totalPrice: total.toFixed(2) });
+		}
+	}
+
+	deleteProduct = id => {
+		const { deleteProductContext } = this.context;
+		const filteredProd = { ...this.state.purchasedProd };
+		filteredProd.product = filteredProd.product.filter(element => element.prodId !== id);
+		this.setState({ purchasedProd: filteredProd });
+		deleteProductContext(filteredProd);
+	};
 
 	render() {
 		if (!this.props.show) {
@@ -52,7 +72,11 @@ export default class ModalCart extends Component {
 							</div>
 							<div className="modalWrapper">
 								{this.state.purchasedProd.product.map(element => (
-									<ModalCartItem key={element.prodId} prodProps={element} />
+									<ModalCartItem
+										key={element.prodId}
+										prodProps={element}
+										delete={this.deleteProduct}
+									/>
 								))}
 								{Object.keys(this.state.purchasedProd.product).length === 0 && (
 									<div className="modalMessage">

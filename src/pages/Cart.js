@@ -19,6 +19,13 @@ export default class Cart extends Component {
 		this.setState({ purchasedProd: context }, () => {});
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		const context = this.context;
+		if (prevState.purchasedProd.product !== context.product) {
+			this.setState({ purchasedProd: context });
+		}
+	}
+
 	deleteProduct = id => {
 		const { deleteProductContext } = this.context;
 		const filteredProd = { ...this.state.purchasedProd };
