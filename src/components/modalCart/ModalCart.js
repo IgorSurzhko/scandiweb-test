@@ -36,12 +36,11 @@ export default class ModalCart extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		const context = this.context;
-
 		if (
 			prevState.purchasedProd.product !== context.product ||
 			prevState.currencyIndex !== this.context.currencyIndex
 		) {
-			if (context.product.length > 0) {
+			if (context.product && context.product.length > 0) {
 				let sum = [];
 				context.product.map(element => sum.push(element.prices[this.state.currencyIndex].amount * element.qty));
 				let total = sum.reduce(function (previousValue, currentValue) {
@@ -83,7 +82,7 @@ export default class ModalCart extends Component {
 
 		return (
 			<>
-				{this.state.purchasedProd.product && (
+				{this.state.purchasedProd && this.state.purchasedProd.product && (
 					<>
 						<div className="modalOverlay" onClick={this.props.onShow}></div>
 						<div className="modal">
@@ -108,10 +107,10 @@ export default class ModalCart extends Component {
 							<div className="totalPrice">
 								<div>Total</div>
 								<div>
-									{
-										this.state.purchasedProd.product[0].prices[this.state.currencyIndex].currency
-											.symbol
-									}
+									{this.state.purchasedProd.product.length
+										? this.state.purchasedProd.product[0].prices[this.state.currencyIndex].currency
+												.symbol
+										: '$'}
 									{this.state.totalPrice}
 								</div>
 							</div>

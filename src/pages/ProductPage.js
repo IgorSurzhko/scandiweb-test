@@ -3,8 +3,6 @@ import Header from '../components/header/Header';
 import { productFetch } from '../utils/productFetch';
 import ProductContext from '../utils/productContext';
 import './productPage.css';
-// import { Link } from 'react-router-dom';
-// import ModalInformation from '../components/modalInformation/ModalInformation';
 import productSubmitter from '../utils/productSubmitter';
 import { Link } from 'react-router-dom';
 
@@ -16,8 +14,9 @@ export default class ProductPage extends Component {
 			isLoaded: true,
 			product: {},
 			bigImgSrc: '',
-			prodAttr: [{}],
-			currencyIndex: 0
+			prodAttr: [],
+			currencyIndex: 0,
+			isAttrAllChecked: false
 		};
 	}
 
@@ -32,6 +31,10 @@ export default class ProductPage extends Component {
 			bigImgSrc: res.data.product.gallery[0],
 			currencyIndex: this.context.currencyIndex
 		});
+
+		if (!this.state.product.attributes.length) {
+			this.setState({ isAttrAllChecked: true });
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -45,13 +48,28 @@ export default class ProductPage extends Component {
 	}
 
 	attrCheck = e => {
-		this.setState(prevState => ({
-			prodAttr: [...prevState.prodAttr, { [e.target.name]: e.target.value }]
-		}));
+		this.setState(
+			prevState => ({
+				prodAttr: [
+					...prevState.prodAttr.filter(elem => Object.keys(elem)[0] !== e.target.name),
+					{ [e.target.name]: e.target.value }
+				]
+			}),
+			() => {
+				if (this.state.prodAttr.length === this.state.product.attributes.length) {
+					this.setState({ isAttrAllChecked: true });
+				}
+			}
+		);
 	};
 
 	submitHandler = () => {
-		productSubmitter(this.state, this.context);
+		if (this.state.isAttrAllChecked) {
+			console.log('huyna');
+			productSubmitter(this.state, this.context);
+		} else {
+			console.log('nihuya');
+		}
 	};
 
 	bigImgChanger = e => {
@@ -111,9 +129,10 @@ export default class ProductPage extends Component {
 								{this.state.product.prices[this.state.currencyIndex].currency.symbol}
 								{this.state.product.prices[this.state.currencyIndex].amount}
 							</p>
-
 							<Link to="/cart" onClick={this.submitHandler}>
-								<button>add to cart</button>
+								<button className="disabled" disabled={!this.state.isAttrAllChecked}>
+									{!this.state.isAttrAllChecked ? 'please select item options' : 'add to cart'}
+								</button>
 							</Link>
 							<div className="productBoxItemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
 						</div>
