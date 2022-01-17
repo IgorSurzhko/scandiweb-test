@@ -9,7 +9,18 @@ import './itemCard.css';
 // this.props.inStock;
 
 export default class ItemCard extends Component {
+	state = { currencyIndex: 0 };
 	static contextType = ProductContext;
+
+	componentDidMount() {
+		this.setState({ currencyIndex: this.context.currencyIndex });
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.currencyIndex !== this.context.currencyIndex) {
+			this.setState({ currencyIndex: this.context.currencyIndex });
+		}
+	}
 
 	onClickPurchase = e => {
 		e.preventDefault();
@@ -40,8 +51,8 @@ export default class ItemCard extends Component {
 
 				<p className="itemName">{this.props.name}</p>
 				<p className="itemPrice">
-					{getSymbolFromCurrency(this.props.prices[0].currency.label)}
-					{this.props.prices[0].amount}
+					{getSymbolFromCurrency(this.props.prices[this.state.currencyIndex].currency.label)}
+					{this.props.prices[this.state.currencyIndex].amount}
 				</p>
 			</Link>
 		);

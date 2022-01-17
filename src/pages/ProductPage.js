@@ -9,22 +9,35 @@ import productSubmitter from '../utils/productSubmitter';
 import { Link } from 'react-router-dom';
 
 export default class ProductPage extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		this.state = {
 			modalShow: false,
 			isLoaded: true,
 			product: {},
 			bigImgSrc: '',
-			prodAttr: [{}]
+			prodAttr: [{}],
+			currencyIndex: 0
 		};
 	}
+
 	static contextType = ProductContext;
 
 	async componentDidMount() {
 		const id = window.location.pathname.split('/')[2];
 		let res = await productFetch(id);
-		this.setState({ product: res.data.product, isLoaded: false, bigImgSrc: res.data.product.gallery[0] });
+		this.setState({
+			product: res.data.product,
+			isLoaded: false,
+			bigImgSrc: res.data.product.gallery[0],
+			currencyIndex: this.context.currencyIndex
+		});
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.currencyIndex !== this.context.currencyIndex) {
+			this.setState({ currencyIndex: this.context.currencyIndex });
+		}
 	}
 
 	createMarkup() {
@@ -44,19 +57,6 @@ export default class ProductPage extends Component {
 	bigImgChanger = e => {
 		this.setState({ bigImgSrc: e.target.src });
 	};
-
-	// showModal = () => {
-	// 	this.setState({
-	// 		modalShow: true
-	// 	});
-	// 	this.submitHandler();
-	// };
-
-	// hideModal = () => {
-	// 	this.setState({
-	// 		modalShow: false
-	// 	});
-	// };
 
 	render() {
 		return (
@@ -108,25 +108,17 @@ export default class ProductPage extends Component {
 
 							<p className="productBoxItemPrice">Price:</p>
 							<p className="productBoxItemPriceDigit">
-								{this.state.product.prices[0].currency.symbol}
-								{this.state.product.prices[0].amount}
+								{this.state.product.prices[this.state.currencyIndex].currency.symbol}
+								{this.state.product.prices[this.state.currencyIndex].amount}
 							</p>
 
 							<Link to="/cart" onClick={this.submitHandler}>
-								<button
-								// onClick={this.showModal}
-								>
-									add to cart
-								</button>
+								<button>add to cart</button>
 							</Link>
-
-							{/* <button onClick={this.showModal}> add to cart</button> */}
-
 							<div className="productBoxItemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
 						</div>
 					</div>
 				)}
-				{/* <ModalInformation show={this.state.modalShow} changeShow={this.hideModal} /> */}
 			</>
 		);
 	}

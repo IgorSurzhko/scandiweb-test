@@ -8,16 +8,22 @@ export default class ModalCartItem extends Component {
 	constructor() {
 		super();
 		this.state = {
-			qty: 1
+			qty: 1,
+			currencyIndex: 0
 		};
 	}
 
 	static contextType = ProductContext;
 
 	componentDidMount() {
-		this.setState({ qty: this.props.prodProps.qty });
+		this.setState({ qty: this.props.prodProps.qty, currencyIndex: this.context.currencyIndex });
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.currencyIndex !== this.context.currencyIndex) {
+			this.setState({ currencyIndex: this.context.currencyIndex });
+		}
+	}
 	increaseQty = () => {
 		this.setState(
 			prevState => ({
@@ -54,8 +60,8 @@ export default class ModalCartItem extends Component {
 								<p className="cartModalItemName">{this.props.prodProps.brand}</p>
 								<p className="cartModalItemDescr">{this.props.prodProps.name}</p>
 								<p className="cartModalItemPriceDigit">
-									{this.props.prodProps.prices[0].currency.symbol}
-									{this.props.prodProps.prices[0].amount}
+									{this.props.prodProps.prices[this.state.currencyIndex].currency.symbol}
+									{this.props.prodProps.prices[this.state.currencyIndex].amount}
 								</p>
 								<div className="cartModalItemAttr">
 									{Object.keys(this.props.prodProps.attributes).length !== 0 &&

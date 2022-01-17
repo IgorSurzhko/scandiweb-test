@@ -6,7 +6,8 @@ let retrievedObject = serializedLocal();
 
 class ProductProvider extends Component {
 	state = {
-		product: retrievedObject
+		product: retrievedObject,
+		currencyIndex: 0
 	};
 
 	setProduct = newProduct => {
@@ -37,20 +38,29 @@ class ProductProvider extends Component {
 		this.setState({ product: filteredProd.product });
 	};
 
+	setCurrencyIndex = idx => {
+		this.setState({ currencyIndex: idx });
+	};
+
 	render() {
 		const { children } = this.props;
 		const { product } = this.state;
+		const { currencyIndex } = this.state;
+
 		const { setProduct } = this;
 		const { setQty } = this;
 		const { deleteProductContext } = this;
+		const { setCurrencyIndex } = this;
 
 		return (
 			<ProductContext.Provider
 				value={{
 					product,
+					currencyIndex,
 					setProduct,
 					setQty,
-					deleteProductContext
+					deleteProductContext,
+					setCurrencyIndex
 				}}>
 				{children}
 			</ProductContext.Provider>

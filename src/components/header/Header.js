@@ -1,8 +1,11 @@
 import { Component } from 'react';
+import { currencyFetch } from '../../utils/currencyFetch';
+
 import { ReactComponent as ShopLogo } from '../../assets/a-logo.svg';
 import { ReactComponent as CartIcon } from '../../assets/cartIcon.svg';
 import { ReactComponent as ArrowCurrencyUp } from '../../assets/arrowCurrencyUp.svg';
 import { ReactComponent as ArrowCurrencyDown } from '../../assets/arrowCurrencyDown.svg';
+import ProductContext from '../../utils/productContext';
 
 import CurrencyModal from '../currencyModal/CurrencyModal';
 import ModalCart from '../modalCart/ModalCart';
@@ -15,8 +18,15 @@ export default class Header extends Component {
 		showModalCart: false,
 		showModalCurrency: false,
 		cartQty: 0,
-		symbol: '$'
+		curr: [],
+		currencyIndex: 0
 	};
+	static contextType = ProductContext;
+
+	async componentDidMount() {
+		let res = await currencyFetch();
+		this.setState({ curr: res.data.currencies, currencyIndex: this.context.currencyIndex });
+	}
 
 	showModal = () => {
 		this.setState(prevState => ({
@@ -34,8 +44,8 @@ export default class Header extends Component {
 		this.setState({ cartQty: qty });
 	};
 
-	onCurrSymbol = symbol => {
-		this.setState({ symbol: symbol.substring(0, 2) });
+	onCurrSymbol = idx => {
+		this.setState({ currencyIndex: idx });
 	};
 
 	render() {
@@ -50,7 +60,7 @@ export default class Header extends Component {
 
 				<div className="cartAndCurrency">
 					<button className="currencyIcon" onClick={this.showCurrency}>
-						{this.state.symbol}
+						{this.state.curr.length > 0 && this.state.curr[this.state.currencyIndex].symbol}
 						{this.state.showModalCurrency ? <ArrowCurrencyUp /> : <ArrowCurrencyDown />}
 					</button>
 
@@ -60,6 +70,7 @@ export default class Header extends Component {
 					</button>
 				</div>
 				<CurrencyModal
+					curr={this.state.curr}
 					currency={this.state.showModalCurrency}
 					onShow={this.showCurrency}
 					clickHandler={this.onCurrSymbol}

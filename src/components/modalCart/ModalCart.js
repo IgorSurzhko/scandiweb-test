@@ -9,7 +9,8 @@ export default class ModalCart extends Component {
 		super();
 		this.state = {
 			purchasedProd: [],
-			totalPrice: 0
+			totalPrice: 0,
+			currencyIndex: 0
 		};
 	}
 	static contextType = ProductContext;
@@ -20,7 +21,9 @@ export default class ModalCart extends Component {
 
 		if (Object.keys(this.state.purchasedProd.product).length !== 0) {
 			let sum = [];
-			this.state.purchasedProd.product.map(element => sum.push(element.prices[0].amount * element.qty));
+			this.state.purchasedProd.product.map(element =>
+				sum.push(element.prices[this.state.currencyIndex].amount * element.qty)
+			);
 			let total = sum.reduce(function (previousValue, currentValue) {
 				return previousValue + currentValue;
 			});
@@ -33,20 +36,30 @@ export default class ModalCart extends Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		const context = this.context;
-		if (prevState.purchasedProd.product !== context.product) {
+
+		if (
+			prevState.purchasedProd.product !== context.product ||
+			prevState.currencyIndex !== this.context.currencyIndex
+		) {
 			if (context.product.length > 0) {
 				let sum = [];
-				context.product.map(element => sum.push(element.prices[0].amount * element.qty));
+				context.product.map(element => sum.push(element.prices[this.state.currencyIndex].amount * element.qty));
 				let total = sum.reduce(function (previousValue, currentValue) {
 					return previousValue + currentValue;
 				});
-				this.setState({ purchasedProd: context, totalPrice: total.toFixed(2) }, () => {
-					this.props.qtyProp(this.state.purchasedProd.product.length);
-				});
+				this.setState(
+					{ purchasedProd: context, totalPrice: total.toFixed(2), currencyIndex: this.context.currencyIndex },
+					() => {
+						this.props.qtyProp(this.state.purchasedProd.product.length);
+					}
+				);
 			} else {
-				this.setState({ purchasedProd: context, totalPrice: 0 }, () => {
-					this.props.qtyProp(this.state.purchasedProd.product.length);
-				});
+				this.setState(
+					{ purchasedProd: context, totalPrice: 0, currencyIndex: this.context.currencyIndex },
+					() => {
+						this.props.qtyProp(this.state.purchasedProd.product.length);
+					}
+				);
 			}
 		}
 	}
@@ -94,7 +107,13 @@ export default class ModalCart extends Component {
 							</div>
 							<div className="totalPrice">
 								<div>Total</div>
-								<div>${this.state.totalPrice}</div>
+								<div>
+									{
+										this.state.purchasedProd.product[0].prices[this.state.currencyIndex].currency
+											.symbol
+									}
+									{this.state.totalPrice}
+								</div>
 							</div>
 							<div className="buttons">
 								<Link to="/cart">

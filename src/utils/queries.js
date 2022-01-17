@@ -15,6 +15,7 @@ export const CATEGORY_QUERY = gql`
 				prices {
 					currency {
 						label
+						symbol
 					}
 					amount
 				}

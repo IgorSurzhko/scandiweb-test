@@ -10,18 +10,22 @@ export default class CartItem extends Component {
 	constructor() {
 		super();
 		this.state = {
-			qty: 1
+			qty: 1,
+			currencyIndex: 0
 		};
 	}
 	static contextType = ProductContext;
 
 	componentDidMount() {
-		this.setState({ qty: this.props.prodProps.qty });
+		this.setState({ qty: this.props.prodProps.qty, currencyIndex: this.context.currencyIndex });
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.qty !== this.props.prodProps.qty) {
 			this.setState({ qty: this.props.prodProps.qty });
+		}
+		if (prevState.currencyIndex !== this.context.currencyIndex) {
+			this.setState({ currencyIndex: this.context.currencyIndex });
 		}
 	}
 
@@ -62,8 +66,8 @@ export default class CartItem extends Component {
 								<p className="cartItemName">{this.props.prodProps.brand}</p>
 								<p className="cartItemDescr">{this.props.prodProps.name}</p>
 								<p className="cartItemPriceDigit">
-									{this.props.prodProps.prices[0].currency.symbol}
-									{this.props.prodProps.prices[0].amount}
+									{this.props.prodProps.prices[this.state.currencyIndex].currency.symbol}
+									{this.props.prodProps.prices[this.state.currencyIndex].amount}
 								</p>
 								<div className="cartItemAttributes">
 									{Object.keys(this.props.prodProps.attributes).length !== 0 &&
