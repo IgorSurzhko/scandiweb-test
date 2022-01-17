@@ -31,11 +31,10 @@ export default class ItemCard extends Component {
 				id={this.props.id}
 				className={this.props.inStock ? 'cardBox' : 'cardBox  itemCardNotActive'}>
 				{!this.props.inStock && <div className="itemCardOverlay">OUT OF STOCK</div>}
-				{/* {console.log(this.props.attr.length)} */}
 
 				<img src={this.props.gallery[0]} alt="card_image" />
 
-				<button onClick={this.onClickPurchase}>
+				<button onClick={this.props.attr.length === 0 ? this.onClickPurchase : undefined}>
 					<img src={require('../../assets/white pan on a green background.png')} alt="cart" />
 				</button>
 
