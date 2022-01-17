@@ -72,7 +72,7 @@ export default class ModalCart extends Component {
 			<>
 				{this.state.purchasedProd.product && (
 					<>
-						<div className="overlay" onClick={this.props.onShow}></div>
+						<div className="modalOverlay" onClick={this.props.onShow}></div>
 						<div className="modal">
 							<div className="modalHeader" onClick={this.totalPrice}>
 								<span>My Cart, </span>

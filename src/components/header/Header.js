@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { ReactComponent as ShopLogo } from '../../assets/a-logo.svg';
 import { ReactComponent as CartIcon } from '../../assets/cartIcon.svg';
+import { ReactComponent as ArrowCurrencyUp } from '../../assets/arrowCurrencyUp.svg';
+import { ReactComponent as ArrowCurrencyDown } from '../../assets/arrowCurrencyDown.svg';
 
 import CurrencyModal from '../currencyModal/CurrencyModal';
 import ModalCart from '../modalCart/ModalCart';
@@ -10,25 +12,30 @@ import { NavLink } from 'react-router-dom';
 
 export default class Header extends Component {
 	state = {
-		show: false,
-		currency: false,
-		cartQty: 0
+		showModalCart: false,
+		showModalCurrency: false,
+		cartQty: 0,
+		symbol: '$'
 	};
 
 	showModal = () => {
 		this.setState(prevState => ({
-			show: !prevState.show
+			showModalCart: !prevState.showModalCart
 		}));
 	};
 
-	showCurrency = e => {
+	showCurrency = () => {
 		this.setState(prevState => ({
-			show: prevState.show
+			showModalCurrency: !prevState.showModalCurrency
 		}));
 	};
 
 	onPurchaseQty = qty => {
 		this.setState({ cartQty: qty });
+	};
+
+	onCurrSymbol = symbol => {
+		this.setState({ symbol: symbol.substring(0, 2) });
 	};
 
 	render() {
@@ -39,27 +46,25 @@ export default class Header extends Component {
 					<NavLink to="/clothes">Clothes</NavLink>
 					<NavLink to="/tech">Tech</NavLink>
 				</div>
-
 				<ShopLogo />
 
 				<div className="cartAndCurrency">
-					<button
-						onClick={e => {
-							this.showCurrency();
-						}}>
-						<img className="currencyIcon" alt="logo" src={require('../../assets/Group 1.png')} />
+					<button className="currencyIcon" onClick={this.showCurrency}>
+						{this.state.symbol}
+						{this.state.showModalCurrency ? <ArrowCurrencyUp /> : <ArrowCurrencyDown />}
 					</button>
 
-					<button
-						onClick={e => {
-							this.showModal();
-						}}>
+					<button onClick={this.showModal}>
 						{this.state.cartQty > 0 && <div className="headerCartQty">{this.state.cartQty}</div>}
 						<CartIcon />
 					</button>
 				</div>
-				<CurrencyModal currency={this.state.currency} />
-				<ModalCart show={this.state.show} onShow={this.showModal} qtyProp={this.onPurchaseQty} />
+				<CurrencyModal
+					currency={this.state.showModalCurrency}
+					onShow={this.showCurrency}
+					clickHandler={this.onCurrSymbol}
+				/>
+				<ModalCart show={this.state.showModalCart} onShow={this.showModal} qtyProp={this.onPurchaseQty} />
 			</div>
 		);
 	}
