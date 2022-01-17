@@ -11,7 +11,8 @@ export default class CartItem extends Component {
 		super();
 		this.state = {
 			qty: 1,
-			currencyIndex: 0
+			currencyIndex: 0,
+			galleryIndex: 0
 		};
 	}
 	static contextType = ProductContext;
@@ -53,6 +54,25 @@ export default class CartItem extends Component {
 				}
 			}
 		);
+	};
+
+	onArrowLeft = () => {
+		this.setState(prevState => ({
+			galleryIndex: prevState.galleryIndex - 1
+		}));
+		if (this.state.galleryIndex === 0) {
+			this.setState({ galleryIndex: this.props.prodProps.gallery.length - 1 });
+		}
+	};
+
+	onArrowRight = () => {
+		if (this.props.prodProps.gallery.length > 0)
+			this.setState(prevState => ({
+				galleryIndex: prevState.galleryIndex + 1
+			}));
+		if (this.state.galleryIndex === this.props.prodProps.gallery.length - 1) {
+			this.setState({ galleryIndex: 0 });
+		}
 	};
 
 	render() {
@@ -103,12 +123,19 @@ export default class CartItem extends Component {
 									<button onClick={this.decreaseQty}>-</button>
 								</div>
 								<div className="cartItemImg">
-									<img alt="product_image" src={this.props.prodProps.gallery[0]} />
+									<img
+										alt="product_image"
+										src={this.props.prodProps.gallery[this.state.galleryIndex]}
+									/>
 									<div className="arrowLeft">
-										<ArrLeft />
+										{this.props.prodProps.gallery.length > 1 && (
+											<ArrLeft onClick={this.onArrowLeft} />
+										)}
 									</div>
 									<div className="arrowRight">
-										<ArrRight />
+										{this.props.prodProps.gallery.length > 1 && (
+											<ArrRight onClick={this.onArrowRight} />
+										)}
 									</div>
 								</div>
 							</div>
