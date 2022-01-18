@@ -1,10 +1,12 @@
 import { Component } from 'react';
+import { ReactComponent as ArrUp } from '../assets/arrowUp.svg';
+import { ReactComponent as ArrDown } from '../assets/arrowDown.svg';
 import Header from '../components/header/Header';
 import { productFetch } from '../utils/productFetch';
 import ProductContext from '../utils/productContext';
-import './productPage.css';
 import productSubmitter from '../utils/productSubmitter';
 import { Link } from 'react-router-dom';
+import './productPage.css';
 
 export default class ProductPage extends Component {
 	constructor() {
@@ -16,7 +18,8 @@ export default class ProductPage extends Component {
 			bigImgSrc: '',
 			prodAttr: [],
 			currencyIndex: 0,
-			isAttrAllChecked: false
+			isAttrAllChecked: false,
+			sliderImgIdx: 1
 		};
 	}
 
@@ -65,15 +68,31 @@ export default class ProductPage extends Component {
 
 	submitHandler = () => {
 		if (this.state.isAttrAllChecked) {
-			console.log('huyna');
 			productSubmitter(this.state, this.context);
-		} else {
-			console.log('nihuya');
 		}
 	};
 
 	bigImgChanger = e => {
 		this.setState({ bigImgSrc: e.target.src });
+	};
+
+	onArrowUp = () => {
+		this.setState(prevState => ({
+			sliderImgIdx: prevState.sliderImgIdx - 1
+		}));
+		if (this.state.sliderImgIdx === 0) {
+			this.setState({ sliderImgIdx: this.state.product.gallery.length - 3 });
+		}
+	};
+
+	onArrowDown = () => {
+		if (this.state.product.gallery.length > 0)
+			this.setState(prevState => ({
+				sliderImgIdx: prevState.sliderImgIdx + 1
+			}));
+		if (this.state.sliderImgIdx === this.state.product.gallery.length - 3) {
+			this.setState({ sliderImgIdx: 1 });
+		}
 	};
 
 	render() {
@@ -83,9 +102,18 @@ export default class ProductPage extends Component {
 				{!this.state.isLoaded && (
 					<div className="productBox">
 						<div className="productBoxMiniPic">
-							{this.state.product.gallery.map(gallery => (
-								<img onClick={this.bigImgChanger} key={gallery} src={gallery} alt="prod pic" />
-							))}
+							<div className="productBoxArrowUp">
+								{this.state.product.gallery.length > 1 && <ArrUp onClick={this.onArrowUp} />}
+							</div>
+							<div className="productBoxArrowDown">
+								{this.state.product.gallery.length > 1 && <ArrDown onClick={this.onArrowDown} />}
+							</div>
+
+							{this.state.product.gallery
+								.slice(0 + this.state.sliderImgIdx, 3 + this.state.sliderImgIdx)
+								.map(gallery => (
+									<img onClick={this.bigImgChanger} key={gallery} src={gallery} alt="prod pic" />
+								))}
 						</div>
 						<div className="productBoxBigPic">{<img src={this.state.bigImgSrc} alt="prod main pic" />}</div>
 						<div className="productBoxItemAttr">

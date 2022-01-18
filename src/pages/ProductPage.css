@@ -8,10 +8,32 @@
 }
 
 .productBoxMiniPic {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	row-gap: 40px;
+	transition: 2s;
 }
+
+.productBoxArrowUp {
+	cursor: pointer;
+	top: -20px;
+	left: 39.5px;
+	width: 6px;
+	height: 12px;
+	position: absolute;
+	filter: drop-shadow(0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.5));
+}
+.productBoxArrowDown {
+	cursor: pointer;
+	top: 318px;
+	left: 39.5px;
+	width: 6px;
+	height: 12px;
+	position: absolute;
+	filter: drop-shadow(0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.5));
+}
+
 .productBoxMiniPic img {
 	object-fit: contain;
 	width: 79px;

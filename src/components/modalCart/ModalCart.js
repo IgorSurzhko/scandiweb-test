@@ -49,7 +49,12 @@ export default class ModalCart extends Component {
 				this.setState(
 					{ purchasedProd: context, totalPrice: total.toFixed(2), currencyIndex: this.context.currencyIndex },
 					() => {
-						this.props.qtyProp(this.state.purchasedProd.product.length);
+						let qtyBadge = [];
+						context.product.map(element => qtyBadge.push(element.qty));
+						let totalQty = qtyBadge.reduce(function (previousValue, currentValue) {
+							return previousValue + currentValue;
+						});
+						this.props.qtyProp(totalQty);
 					}
 				);
 			} else {

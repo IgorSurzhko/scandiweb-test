@@ -44,6 +44,7 @@ export default class CategoryPage extends Component {
 			<>
 				<Header />
 				<MainText text={this.props.category} />
+
 				<div className="categoryPageItems">
 					{items}
 					<div className="categoryPageLoadButton">
