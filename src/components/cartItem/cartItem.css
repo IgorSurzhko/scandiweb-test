@@ -105,7 +105,7 @@ hr {
 	display: flex;
 	word-wrap: break-word;
 
-	align-items: end;
+	align-items: flex-end;
 }
 
 .cartItemAttributesName {
