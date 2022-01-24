@@ -1,13 +1,15 @@
 import { Component } from 'react';
-import Header from '../components/header/Header';
-import ItemCard from '../components/itemCard/ItemCard';
-import MainText from '../components/mainText/MainText';
 
-import './categoryPage.css';
+import Header from '../components/Header/Header';
+import ItemCard from '../components/ItemCard/ItemCard';
+import MainText from '../components/MainText/MainText';
+
+import './CategoryPage.css';
 
 export default class CategoryPage extends Component {
 	constructor() {
 		super();
+
 		this.state = {
 			showItems: 4
 		};
@@ -16,6 +18,7 @@ export default class CategoryPage extends Component {
 	componentDidMount() {
 		this.setState({ showItems: 4 });
 	}
+
 	handleShowMore = () => {
 		this.setState({
 			showItems:
@@ -40,6 +43,7 @@ export default class CategoryPage extends Component {
 					brand={brand}
 				/>
 			));
+
 		return (
 			<>
 				<Header />

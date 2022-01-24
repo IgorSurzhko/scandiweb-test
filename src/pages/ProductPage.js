@@ -1,16 +1,21 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import { ReactComponent as ArrUp } from '../assets/arrowUp.svg';
 import { ReactComponent as ArrDown } from '../assets/arrowDown.svg';
-import Header from '../components/header/Header';
+
+import Header from '../components/Header/Header';
+
 import { productFetch } from '../utils/productFetch';
 import ProductContext from '../utils/productContext';
 import productSubmitter from '../utils/productSubmitter';
-import { Link } from 'react-router-dom';
-import './productPage.css';
+
+import './ProductPage.css';
 
 export default class ProductPage extends Component {
 	constructor() {
 		super();
+
 		this.state = {
 			modalShow: false,
 			isLoaded: true,
@@ -28,6 +33,7 @@ export default class ProductPage extends Component {
 	async componentDidMount() {
 		const id = window.location.pathname.split('/')[2];
 		let res = await productFetch(id);
+
 		this.setState({
 			product: res.data.product,
 			isLoaded: false,
@@ -80,6 +86,7 @@ export default class ProductPage extends Component {
 		this.setState(prevState => ({
 			sliderImgIdx: prevState.sliderImgIdx - 1
 		}));
+
 		if (this.state.sliderImgIdx === 0) {
 			this.setState({ sliderImgIdx: this.state.product.gallery.length - 3 });
 		}
@@ -90,6 +97,7 @@ export default class ProductPage extends Component {
 			this.setState(prevState => ({
 				sliderImgIdx: prevState.sliderImgIdx + 1
 			}));
+
 		if (this.state.sliderImgIdx === this.state.product.gallery.length - 3) {
 			this.setState({ sliderImgIdx: 1 });
 		}
@@ -103,19 +111,30 @@ export default class ProductPage extends Component {
 					<div className="productBox">
 						<div className="productBoxMiniPic">
 							<div className="productBoxArrowUp">
-								{this.state.product.gallery.length > 1 && <ArrUp onClick={this.onArrowUp} />}
+								{this.state.product.gallery.length > 1 && (
+									<ArrUp onClick={this.onArrowUp} />
+								)}
 							</div>
 							<div className="productBoxArrowDown">
-								{this.state.product.gallery.length > 1 && <ArrDown onClick={this.onArrowDown} />}
+								{this.state.product.gallery.length > 1 && (
+									<ArrDown onClick={this.onArrowDown} />
+								)}
 							</div>
 
 							{this.state.product.gallery
 								.slice(0 + this.state.sliderImgIdx, 3 + this.state.sliderImgIdx)
 								.map(gallery => (
-									<img onClick={this.bigImgChanger} key={gallery} src={gallery} alt="prod pic" />
+									<img
+										onClick={this.bigImgChanger}
+										key={gallery}
+										src={gallery}
+										alt="prod pic"
+									/>
 								))}
 						</div>
-						<div className="productBoxBigPic">{<img src={this.state.bigImgSrc} alt="prod main pic" />}</div>
+						<div className="productBoxBigPic">
+							{<img src={this.state.bigImgSrc} alt="prod main pic" />}
+						</div>
 						<div className="productBoxItemAttr">
 							<p className="productBoxItemName">{this.state.product.brand}</p>
 							<p className="productBoxItemDescr">{this.state.product.name}</p>
@@ -127,7 +146,9 @@ export default class ProductPage extends Component {
 											<p className="productBoxItemAttrName">{attr.name}:</p>
 											<div className="productBoxAttrSelection">
 												{attr.items.map(item => (
-													<div className="productBoxWrapper" key={item.value}>
+													<div
+														className="productBoxWrapper"
+														key={item.value}>
 														<input
 															onClick={this.attrCheck}
 															type="radio"
@@ -139,10 +160,12 @@ export default class ProductPage extends Component {
 															id={item.value}
 															style={{
 																background: `${
-																	item.value.indexOf('#') !== -1 && item.value
+																	item.value.indexOf('#') !==
+																		-1 && item.value
 																}`
 															}}>
-															{!(item.value.indexOf('#') !== -1) && item.value}
+															{!(item.value.indexOf('#') !== -1) &&
+																item.value}
 														</label>
 													</div>
 												))}
@@ -154,15 +177,25 @@ export default class ProductPage extends Component {
 
 							<p className="productBoxItemPrice">Price:</p>
 							<p className="productBoxItemPriceDigit">
-								{this.state.product.prices[this.state.currencyIndex].currency.symbol}
+								{
+									this.state.product.prices[this.state.currencyIndex].currency
+										.symbol
+								}
 								{this.state.product.prices[this.state.currencyIndex].amount}
 							</p>
 							<Link to="/cart" onClick={this.submitHandler}>
-								<button className="disabled" disabled={!this.state.isAttrAllChecked}>
-									{!this.state.isAttrAllChecked ? 'please select item options' : 'add to cart'}
+								<button
+									className="disabled"
+									disabled={!this.state.isAttrAllChecked}>
+									{!this.state.isAttrAllChecked
+										? 'please select item options'
+										: 'add to cart'}
 								</button>
 							</Link>
-							<div className="productBoxItemDescrText" dangerouslySetInnerHTML={this.createMarkup()} />
+							<div
+								className="productBoxItemDescrText"
+								dangerouslySetInnerHTML={this.createMarkup()}
+							/>
 						</div>
 					</div>
 				)}

@@ -1,0 +1,101 @@
+.container {
+	height: 80px;
+	margin: 0 101px 0 101px;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.categories {
+	width: 234px;
+	padding-top: 24px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+
+	padding: 0px;
+}
+
+.categories a {
+	height: 70px;
+	width: 80px;
+	text-align: center;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 400%;
+	text-transform: uppercase;
+	color: #1d1f22;
+	text-decoration: none;
+}
+
+a.active {
+	font-weight: 600;
+	color: #5ece7b;
+	border-bottom: 2px solid;
+}
+
+.logo {
+	width: 41px;
+	height: 41px;
+}
+
+.cartAndCurrency {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.cartAndCurrency button {
+	margin-left: 22px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	outline: none;
+}
+
+.currencyIcon {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 30px;
+	font-family: Raleway;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 160%;
+	padding: 0 0 3px 0;
+}
+
+.cartIcon {
+	width: 20px;
+	height: 20px;
+}
+
+.headerCartQty {
+	display: flex;
+	justify-content: center;
+	background-color: black;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	top: 20px;
+	border-radius: 100%;
+	right: 95px;
+
+	font-family: Roboto;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 16px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	text-transform: uppercase;
+
+	color: #ffffff;
+}

@@ -7,6 +7,7 @@ import './ModalCartItem.css';
 export default class ModalCartItem extends Component {
 	constructor() {
 		super();
+
 		this.state = {
 			qty: 1,
 			currencyIndex: 0
@@ -42,6 +43,7 @@ export default class ModalCartItem extends Component {
 			}),
 			() => {
 				changeQty(this.props.prodProps.prodId, this.state.qty, this.context);
+
 				if (this.state.qty === 0) {
 					deleteProductLocal(this.props.prodProps.prodId);
 					this.props.delete(this.props.prodProps.prodId);
@@ -60,7 +62,10 @@ export default class ModalCartItem extends Component {
 								<p className="cartModalItemName">{this.props.prodProps.brand}</p>
 								<p className="cartModalItemDescr">{this.props.prodProps.name}</p>
 								<p className="cartModalItemPriceDigit">
-									{this.props.prodProps.prices[this.state.currencyIndex].currency.symbol}
+									{
+										this.props.prodProps.prices[this.state.currencyIndex]
+											.currency.symbol
+									}
 									{this.props.prodProps.prices[this.state.currencyIndex].amount}
 								</p>
 								<div className="cartModalItemAttr">
@@ -77,12 +82,17 @@ export default class ModalCartItem extends Component {
 															className="cartModalAttributeBox"
 															style={{
 																background: `${
-																	Object.entries(attr)[0][1].indexOf('#') !== -1 &&
+																	Object.entries(
+																		attr
+																	)[0][1].indexOf('#') !== -1 &&
 																	Object.entries(attr)[0][1]
 																}`
 															}}>
-															{!(Object.entries(attr)[0][1].indexOf('#') !== -1) &&
-																Object.entries(attr)[0][1]}
+															{!(
+																Object.entries(attr)[0][1].indexOf(
+																	'#'
+																) !== -1
+															) && Object.entries(attr)[0][1]}
 														</div>
 													</div>
 												))}
@@ -97,7 +107,10 @@ export default class ModalCartItem extends Component {
 									<button onClick={this.decreaseQty}>-</button>
 								</div>
 								<div className="cartModalProdImg">
-									<img alt="product_image" src={this.props.prodProps.gallery[0]} />
+									<img
+										alt="product_image"
+										src={this.props.prodProps.gallery[0]}
+									/>
 								</div>
 							</div>
 						</div>
