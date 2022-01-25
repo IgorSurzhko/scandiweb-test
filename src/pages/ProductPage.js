@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import parse from 'html-react-parser';
 
 import { ReactComponent as ArrUp } from '../assets/arrowUp.svg';
 import { ReactComponent as ArrDown } from '../assets/arrowDown.svg';
@@ -54,7 +55,7 @@ export default class ProductPage extends Component {
 	}
 
 	createMarkup() {
-		return { __html: `${this.state.product.description}` };
+		return this.state.product.description;
 	}
 
 	attrCheck = e => {
@@ -104,6 +105,27 @@ export default class ProductPage extends Component {
 		}
 	};
 
+	attributeMapper = attr => {
+		return attr.items.map(item => (
+			<div className="productBoxWrapper" key={item.value}>
+				<input
+					onClick={this.attrCheck}
+					type="radio"
+					name={attr.name}
+					id={attr.name + item.value}
+					value={item.value}></input>
+				<label
+					htmlFor={attr.name + item.value}
+					id={item.value}
+					style={{
+						background: `${item.value.indexOf('#') !== -1 && item.value}`
+					}}>
+					{!(item.value.indexOf('#') !== -1) && item.value}
+				</label>
+			</div>
+		));
+	};
+
 	render() {
 		return (
 			<>
@@ -146,30 +168,7 @@ export default class ProductPage extends Component {
 										<div key={attr.name}>
 											<p className="productBoxItemAttrName">{attr.name}:</p>
 											<div className="productBoxAttrSelection">
-												{attr.items.map(item => (
-													<div
-														className="productBoxWrapper"
-														key={item.value}>
-														<input
-															onClick={this.attrCheck}
-															type="radio"
-															name={attr.name}
-															id={attr.name + item.value}
-															value={item.value}></input>
-														<label
-															htmlFor={attr.name + item.value}
-															id={item.value}
-															style={{
-																background: `${
-																	item.value.indexOf('#') !==
-																		-1 && item.value
-																}`
-															}}>
-															{!(item.value.indexOf('#') !== -1) &&
-																item.value}
-														</label>
-													</div>
-												))}
+												{this.attributeMapper(attr)}
 											</div>
 										</div>
 									))}
@@ -193,10 +192,9 @@ export default class ProductPage extends Component {
 										: 'add to cart'}
 								</button>
 							</Link>
-							<div
-								className="productBoxItemDescrText"
-								dangerouslySetInnerHTML={this.createMarkup()}
-							/>
+							<div className="productBoxItemDescrText">
+								{parse(this.state.product.description)}
+							</div>
 						</div>
 					</div>
 				)}

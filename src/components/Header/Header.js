@@ -40,11 +40,6 @@ export default class Header extends Component {
 		});
 	}
 
-	setCategoryContext = cat => {
-		const { setCategory } = this.context;
-		setCategory(cat);
-	};
-
 	showModal = () => {
 		this.setState(prevState => ({
 			showModalCart: !prevState.showModalCart,
@@ -72,10 +67,7 @@ export default class Header extends Component {
 			<div className="container">
 				<div className="categories">
 					{this.state.categories.map(item => (
-						<NavLink
-							onClick={() => this.setCategoryContext(item.name)}
-							key={item.name}
-							to={`/${item.name}`}>
+						<NavLink key={item.name} to={`/${item.name}`}>
 							{item.name}
 						</NavLink>
 					))}
