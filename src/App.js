@@ -1,42 +1,48 @@
-import './App.css';
+import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import Cart from './pages/Cart';
 import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
-import { CATEGORY_QUERY } from './utils/queries';
 
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { categoriesListFetch } from './utils/categoriesListFetch';
 
-import { useQuery } from '@apollo/client';
-
-import { ProductProvider } from './utils/productContext';
+import './App.css';
 
 function App() {
-	function QueryFormat(queryVar) {
-		const fetchedQueryVar = useQuery(CATEGORY_QUERY, { variables: { title: queryVar } });
-		return fetchedQueryVar;
-	}
+	const [categoriesList, setCategoriesList] = useState([{ name: 'all' }]);
 
-	const { loading: allLoading, error: allError, data: allData } = QueryFormat('all');
-	const { loading: clothesLoading, error: clothesError, data: clothesData } = QueryFormat('clothes');
-	const { loading: techLoading, error: techError, data: techData } = QueryFormat('tech');
+	useEffect(() => {
+		let fetchData = async () => {
+			let resCategories = await categoriesListFetch();
 
-	if (allLoading | clothesLoading | techLoading) return <p>Loading...</p>;
-	if (allError | clothesError | techError) return <p>Error :(</p>;
+			setCategoriesList(resCategories.data.categories);
+		};
+
+		fetchData();
+	}, []);
+
+	let setRoutes = () => {
+		return categoriesList.map(item => (
+			<Route
+				key={item.name}
+				path={`/${item.name}`}
+				element={<CategoryPage catName={item.name} />}
+			/>
+		));
+	};
 
 	return (
-		<ProductProvider>
-			<Router>
-				<Routes>
-					<Route path="/" element={<Navigate to="/all" />} />
-					<Route path="/all" element={<CategoryPage data={allData} category={'All'} />} />
-					<Route path="/cart" element={<Cart />} />
-					<Route path="/clothes" element={<CategoryPage data={clothesData} category={'Clothes'} />} />
-					<Route path="/tech" element={<CategoryPage data={techData} category={'Tech'} />} />
-					<Route path="/:category/:id" element={<ProductPage />} />
-					<Route path="/cart" element={<Cart />} />
-				</Routes>
-			</Router>
-		</ProductProvider>
+		<Router>
+			<Routes>
+				{setRoutes()}
+
+				<Route path="/" element={<Navigate to="/all" />} />
+				<Route path="/cart" element={<Cart />} />
+				<Route path="/:category/:id" element={<ProductPage />} />
+				<Route path="/cart" element={<Cart />} />
+			</Routes>
+		</Router>
 	);
 }
 

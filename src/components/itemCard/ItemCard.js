@@ -48,15 +48,13 @@ export default class ItemCard extends Component {
 				{!this.props.inStock && <div className="itemCardOverlay">OUT OF STOCK</div>}
 
 				<img src={this.props.gallery[0]} alt="card_image" />
-
 				<button onClick={this.props.attr.length === 0 ? this.onClickPurchase : undefined}>
 					<img
 						src={require('../../assets/white pan on a green background.png')}
 						alt="cart"
 					/>
 				</button>
-
-				<p className="itemName">{this.props.name}</p>
+				<p className="itemName">{`${this.props.brand} ${this.props.name}`}</p>
 				<p className="itemPrice">
 					{getSymbolFromCurrency(
 						this.props.prices[this.state.currencyIndex].currency.label

@@ -31,6 +31,7 @@ export default class ProductPage extends Component {
 	static contextType = ProductContext;
 
 	async componentDidMount() {
+		//fetching product by ID using graphql query
 		const id = window.location.pathname.split('/')[2];
 		let res = await productFetch(id);
 

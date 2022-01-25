@@ -5,17 +5,20 @@ import { client } from './utils/apolloClient';
 import { ApolloProvider } from '@apollo/client';
 
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
+import { ProductProvider } from './utils/productContext';
 
 import App from './App';
 import './index.css';
 
 ReactDOM.render(
 	<ApolloProvider client={client}>
-		<React.StrictMode>
-			<ErrorBoundary>
-				<App />
-			</ErrorBoundary>
-		</React.StrictMode>
+		<ProductProvider>
+			<React.StrictMode>
+				<ErrorBoundary>
+					<App />
+				</ErrorBoundary>
+			</React.StrictMode>
+		</ProductProvider>
 	</ApolloProvider>,
 	document.getElementById('root')
 );

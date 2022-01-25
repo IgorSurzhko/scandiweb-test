@@ -24,6 +24,7 @@ class ProductProvider extends Component {
 
 	setQty = qtyChangedObj => {
 		const mappedProd = { ...this.state };
+
 		mappedProd.product = this.state.product.map(element => {
 			if (element.prodId === qtyChangedObj.prodId) {
 				return { ...element, qty: qtyChangedObj.qty };

@@ -4,7 +4,7 @@ import { client } from './apolloClient';
 export function productFetch(id) {
 	return client.query({
 		query: gql`
-				query GetRates {
+				query GetProductByID {
 					product(id: "${id}") {
 						id
 						name

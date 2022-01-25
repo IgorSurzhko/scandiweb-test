@@ -3,33 +3,46 @@ import { Component } from 'react';
 import Header from '../components/Header/Header';
 import ItemCard from '../components/ItemCard/ItemCard';
 import MainText from '../components/MainText/MainText';
+import { categoryItemsFetch } from '../utils/categoryItemsFetch';
 
 import './CategoryPage.css';
 
 export default class CategoryPage extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
-			showItems: 4
+			showItems: 4,
+			products: [],
+			category: ''
 		};
 	}
 
-	componentDidMount() {
-		this.setState({ showItems: 4 });
+	async componentDidMount() {
+		let res = await categoryItemsFetch(this.props.catName);
+
+		this.setState({ products: res.data.category.products, category: this.props.catName });
+	}
+
+	async componentDidUpdate(prevProps, prevState) {
+		if (prevState.category !== this.props.catName) {
+			let res = await categoryItemsFetch(this.props.catName);
+
+			this.setState({ products: res.data.category.products, category: this.props.catName });
+		}
 	}
 
 	handleShowMore = () => {
 		this.setState({
 			showItems:
-				this.state.showItems >= this.props.data.category.products.length
+				this.state.showItems >= this.state.products.length
 					? this.state.showItems
 					: this.state.showItems + 2
 		});
 	};
 
 	render() {
-		const items = this.props.data.category.products
+		const items = this.state.products
 			.slice(0, this.state.showItems)
 			.map(({ id, name, inStock, gallery, prices, attributes, brand }) => (
 				<ItemCard
@@ -47,12 +60,12 @@ export default class CategoryPage extends Component {
 		return (
 			<>
 				<Header />
-				<MainText text={this.props.category} />
+				<MainText text={this.props.catName} />
 
 				<div className="categoryPageItems">
 					{items}
 					<div className="categoryPageLoadButton">
-						{this.state.showItems < this.props.data.category.products.length && (
+						{this.state.showItems < this.state.products.length && (
 							<button className="btn" onClick={this.handleShowMore}>
 								LOAD MORE
 							</button>

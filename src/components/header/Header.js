@@ -13,6 +13,7 @@ import ModalCart from '../ModalCart/ModalCart';
 import './Header.css';
 
 import { NavLink } from 'react-router-dom';
+import { categoriesListFetch } from '../../utils/categoriesListFetch';
 
 export default class Header extends Component {
 	state = {
@@ -20,19 +21,29 @@ export default class Header extends Component {
 		showModalCurrency: false,
 		cartQty: 0,
 		curr: [],
-		currencyIndex: 0
+		currencyIndex: 0,
+		categories: []
 	};
 
 	static contextType = ProductContext;
 
 	async componentDidMount() {
-		let res = await currencyFetch();
+		let resCurr = await currencyFetch();
+
+		//categories list fetched using its own query
+		let resCategory = await categoriesListFetch();
 
 		this.setState({
-			curr: res.data.currencies,
-			currencyIndex: this.context.currencyIndex
+			curr: resCurr.data.currencies,
+			currencyIndex: this.context.currencyIndex,
+			categories: resCategory.data.categories
 		});
 	}
+
+	setCategoryContext = cat => {
+		const { setCategory } = this.context;
+		setCategory(cat);
+	};
 
 	showModal = () => {
 		this.setState(prevState => ({
@@ -58,9 +69,14 @@ export default class Header extends Component {
 		return (
 			<div className="container">
 				<div className="categories">
-					<NavLink to="/all">All</NavLink>
-					<NavLink to="/clothes">Clothes</NavLink>
-					<NavLink to="/tech">Tech</NavLink>
+					{this.state.categories.map(item => (
+						<NavLink
+							onClick={() => this.setCategoryContext(item.name)}
+							key={item.name}
+							to={`/${item.name}`}>
+							{item.name}
+						</NavLink>
+					))}
 				</div>
 
 				<ShopLogo />
