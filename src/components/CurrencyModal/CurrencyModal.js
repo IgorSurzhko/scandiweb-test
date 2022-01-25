@@ -14,6 +14,16 @@ export default class CurrencyModal extends Component {
 		this.props.onShow();
 	};
 
+	currencyMapped = () => {
+		return this.props.curr.map((elem, idx) => (
+			<div
+				key={elem.label}
+				onClick={e => {
+					this.onClickHandler(idx);
+				}}>{`${elem.symbol} ${elem.label}`}</div>
+		));
+	};
+
 	render() {
 		if (!this.props.currency) {
 			return null;
@@ -21,15 +31,7 @@ export default class CurrencyModal extends Component {
 		return (
 			<>
 				<div className="currencyModalOverlay" onClick={this.props.onShow}></div>
-				<div className="currencyModal">
-					{this.props.curr.map((elem, idx) => (
-						<div
-							key={elem.label}
-							onClick={e => {
-								this.onClickHandler(idx);
-							}}>{`${elem.symbol} ${elem.label}`}</div>
-					))}
-				</div>
+				<div className="currencyModal">{this.currencyMapped()}</div>
 			</>
 		);
 	}

@@ -24,14 +24,13 @@ export default function productSubmitter(state, context) {
 	};
 
 	let duplicate = productDuplicateCheck(newProduct);
-	console.log(duplicate);
 
 	if (duplicate.length === 0) {
 		setProduct(newProduct);
 		localStorage.setItem(prodId, JSON.stringify(newProduct));
 	} else {
 		duplicate[0].qty += 1;
-		console.log(duplicate[0].qty);
+
 		changeQty(duplicate[0].prodId, duplicate[0].qty, context);
 	}
 }
