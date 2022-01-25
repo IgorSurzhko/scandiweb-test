@@ -9,10 +9,9 @@ export default class CurrencyModal extends Component {
 
 	onClickHandler = idx => {
 		this.props.clickHandler(idx);
-
 		const { setCurrencyIndex } = this.context;
-
 		setCurrencyIndex(idx);
+		this.props.onShow();
 	};
 
 	render() {
