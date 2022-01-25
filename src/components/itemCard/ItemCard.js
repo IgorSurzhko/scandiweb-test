@@ -39,21 +39,40 @@ export default class ItemCard extends Component {
 		productSubmitter(prodObject, this.context);
 	};
 
+	buttonLogic = () => {
+		if (!this.props.inStock) {
+			return (
+				<button disabled>
+					<img
+						src={require('../../assets/white pan on a green background.png')}
+						alt="cart"
+					/>
+				</button>
+			);
+		}
+
+		return (
+			<button onClick={this.props.attr.length === 0 ? this.onClickPurchase : undefined}>
+				<img src={require('../../assets/white pan on a green background.png')} alt="cart" />
+			</button>
+		);
+	};
+
+	isOutOfStock = () => {
+		return <>{!this.props.inStock && <div className="itemCardOverlay">OUT OF STOCK</div>}</>;
+	};
+
 	render() {
 		return (
 			<Link
 				to={this.props.id}
 				id={this.props.id}
 				className={this.props.inStock ? 'cardBox' : 'cardBox  itemCardNotActive'}>
-				{!this.props.inStock && <div className="itemCardOverlay">OUT OF STOCK</div>}
+				{this.isOutOfStock()}
 
 				<img src={this.props.gallery[0]} alt="card_image" />
-				<button onClick={this.props.attr.length === 0 ? this.onClickPurchase : undefined}>
-					<img
-						src={require('../../assets/white pan on a green background.png')}
-						alt="cart"
-					/>
-				</button>
+				{this.buttonLogic()}
+
 				<p className="itemName">{`${this.props.brand} ${this.props.name}`}</p>
 				<p className="itemPrice">
 					{getSymbolFromCurrency(

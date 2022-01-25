@@ -50,7 +50,6 @@
 
 .itemCardNotActive {
 	color: #8d8f9a;
-	pointer-events: none;
 }
 
 .cardBox button img {

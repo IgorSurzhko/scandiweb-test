@@ -177,14 +177,22 @@ export default class ProductPage extends Component {
 	};
 
 	submitButtonLogic = () => {
-		return (
-			<button
-				onClick={this.submitHandler}
-				className="disabled"
-				disabled={!this.state.isAttrAllChecked}>
-				{!this.state.isAttrAllChecked ? 'please select item options' : 'add to cart'}
-			</button>
-		);
+		if (!this.state.product.inStock) {
+			return (
+				<button disabled className="disabled">
+					temporarily out of stock
+				</button>
+			);
+		} else {
+			return (
+				<button
+					onClick={this.submitHandler}
+					className="disabled"
+					disabled={!this.state.isAttrAllChecked}>
+					{!this.state.isAttrAllChecked ? 'please select item options' : 'add to cart'}
+				</button>
+			);
+		}
 	};
 
 	render() {

@@ -8,6 +8,7 @@ export function productFetch(id) {
 				product(id: "${id}") {
 					id
 					name
+					inStock
 					gallery
 					description
 					attributes {
