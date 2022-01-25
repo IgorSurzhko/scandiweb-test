@@ -5,6 +5,7 @@ import ModalCartItem from '../ModalCartItem/ModalCartItem';
 import ProductContext from '../../utils/productContext';
 
 import './ModalCart.css';
+import Spinner from '../Spinner/Spinner';
 
 export default class ModalCart extends Component {
 	constructor() {
@@ -13,7 +14,8 @@ export default class ModalCart extends Component {
 		this.state = {
 			purchasedProd: [],
 			totalPrice: 0,
-			currencyIndex: 0
+			currencyIndex: 0,
+			isLoading: true
 		};
 	}
 	static contextType = ProductContext;
@@ -21,7 +23,7 @@ export default class ModalCart extends Component {
 	async componentDidMount() {
 		const context = await this.context;
 
-		this.setState({ purchasedProd: context });
+		this.setState({ purchasedProd: context, isLoading: false });
 
 		if (Object.keys(this.state.purchasedProd.product).length !== 0) {
 			let sum = [];
@@ -62,7 +64,8 @@ export default class ModalCart extends Component {
 					{
 						purchasedProd: context,
 						totalPrice: total.toFixed(2),
-						currencyIndex: this.context.currencyIndex
+						currencyIndex: this.context.currencyIndex,
+						isLoading: false
 					},
 					() => {
 						let qtyBadge = [];
@@ -80,7 +83,8 @@ export default class ModalCart extends Component {
 					{
 						purchasedProd: context,
 						totalPrice: 0,
-						currencyIndex: this.context.currencyIndex
+						currencyIndex: this.context.currencyIndex,
+						isLoading: false
 					},
 					() => {
 						this.props.qtyProp(this.state.purchasedProd.product.length);
@@ -98,6 +102,36 @@ export default class ModalCart extends Component {
 		deleteProductContext(filteredProd);
 	};
 
+	itemsMapped = () => {
+		if (this.state.purchasedProd.product.length === 0) {
+			return (
+				<div className="modalMessage">
+					<p> There is no items in your cart</p>
+				</div>
+			);
+		} else {
+			return this.state.purchasedProd.product.map(element => (
+				<ModalCartItem
+					key={element.prodId}
+					prodProps={element}
+					delete={this.deleteProduct}
+				/>
+			));
+		}
+	};
+
+	priceHandler = () => {
+		return (
+			<>
+				{this.state.purchasedProd.product.length
+					? this.state.purchasedProd.product[0].prices[this.state.currencyIndex].currency
+							.symbol
+					: '$'}
+				{this.state.totalPrice}
+			</>
+		);
+	};
+
 	render() {
 		if (!this.props.show) {
 			document.body.style.overflowY = 'scroll';
@@ -107,52 +141,29 @@ export default class ModalCart extends Component {
 		if (this.props.show) {
 			document.body.style.overflowY = 'hidden';
 		}
+		if (this.state.isLoading) return <Spinner />;
 
 		return (
 			<>
-				{this.state.purchasedProd && this.state.purchasedProd.product && (
-					<>
-						<div className="modalOverlay" onClick={this.props.onShow}></div>
-						<div className="modal">
-							<div className="modalHeader" onClick={this.totalPrice}>
-								<span>My Cart, </span>
-								<span>{this.state.purchasedProd.product.length}</span> items
-							</div>
-							<div className="modalWrapper">
-								{this.state.purchasedProd.product.map(element => (
-									<ModalCartItem
-										key={element.prodId}
-										prodProps={element}
-										delete={this.deleteProduct}
-									/>
-								))}
-								{this.state.purchasedProd.product.length === 0 && (
-									<div className="modalMessage">
-										<p> There is no items in your cart</p>
-									</div>
-								)}
-							</div>
-							<div className="totalPrice">
-								<div>Total</div>
-								<div>
-									{this.state.purchasedProd.product.length
-										? this.state.purchasedProd.product[0].prices[
-												this.state.currencyIndex
-										  ].currency.symbol
-										: '$'}
-									{this.state.totalPrice}
-								</div>
-							</div>
-							<div className="buttons">
-								<Link to="/cart">
-									<button>View Cart</button>
-								</Link>
+				<div className="modalOverlay" onClick={this.props.onShow}></div>
+				<div className="modal">
+					<div className="modalHeader" onClick={this.totalPrice}>
+						<span>My Cart, </span>
+						<span>{this.state.purchasedProd.product.length}</span> items
+					</div>
+					<div className="modalWrapper">{this.itemsMapped()}</div>
+					<div className="totalPrice">
+						<div>Total</div>
+						<div>{this.priceHandler()}</div>
+					</div>
+					<div className="buttons">
+						<Link to="/cart">
+							<button>View Cart</button>
+						</Link>
 
-								<button> Check Out</button>
-							</div>
-						</div>
-					</>
-				)}
+						<button> Check Out</button>
+					</div>
+				</div>
 			</>
 		);
 	}

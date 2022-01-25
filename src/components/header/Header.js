@@ -62,33 +62,43 @@ export default class Header extends Component {
 		this.setState({ currencyIndex: idx });
 	};
 
+	categoriesMapped = () => {
+		return this.state.categories.map(item => (
+			<NavLink key={item.name} to={`/${item.name}`}>
+				{item.name}
+			</NavLink>
+		));
+	};
+
+	currencyButtonLogic = () => {
+		return (
+			<button className="currencyIcon" onClick={this.showCurrency}>
+				{this.state.curr.length > 0 && this.state.curr[this.state.currencyIndex].symbol}
+				{this.state.showModalCurrency ? <ArrowCurrencyUp /> : <ArrowCurrencyDown />}
+			</button>
+		);
+	};
+
+	cartButtonLogic = () => {
+		return (
+			<button onClick={this.showModal}>
+				{this.state.cartQty > 0 && (
+					<div className="headerCartQty">{this.state.cartQty}</div>
+				)}
+
+				<CartIcon />
+			</button>
+		);
+	};
+
 	render() {
 		return (
 			<div className="container">
-				<div className="categories">
-					{this.state.categories.map(item => (
-						<NavLink key={item.name} to={`/${item.name}`}>
-							{item.name}
-						</NavLink>
-					))}
-				</div>
-
+				<div className="categories">{this.categoriesMapped()}</div>
 				<ShopLogo />
-
 				<div className="cartAndCurrency">
-					<button className="currencyIcon" onClick={this.showCurrency}>
-						{this.state.curr.length > 0 &&
-							this.state.curr[this.state.currencyIndex].symbol}
-						{this.state.showModalCurrency ? <ArrowCurrencyUp /> : <ArrowCurrencyDown />}
-					</button>
-
-					<button onClick={this.showModal}>
-						{this.state.cartQty > 0 && (
-							<div className="headerCartQty">{this.state.cartQty}</div>
-						)}
-
-						<CartIcon />
-					</button>
+					{this.currencyButtonLogic()}
+					{this.cartButtonLogic()}
 				</div>
 				<CurrencyModal
 					curr={this.state.curr}
