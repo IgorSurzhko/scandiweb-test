@@ -15,10 +15,8 @@ function App() {
 	useEffect(() => {
 		let fetchData = async () => {
 			let resCategories = await categoriesListFetch();
-
 			setCategoriesList(resCategories.data.categories);
 		};
-
 		fetchData();
 	}, []);
 

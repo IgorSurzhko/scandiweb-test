@@ -4,34 +4,30 @@ import { client } from './apolloClient';
 export function productFetch(id) {
 	return client.query({
 		query: gql`
-				query GetProductByID {
-					product(id: "${id}") {
-						id
-						name
-						gallery
-						description
-						attributes {
+			query GetProductByID {
+				product(id: "${id}") {
+					id
+					name
+					gallery
+					description
+					attributes {
 						id
 						name
 						type
 						items {
-							displayValue
 							value
-							id
-							
-						}
-						}
-						prices{
+							}
+					}
+					prices{
 						currency{
 							label
 							symbol
 						}
 						amount
-						
-						}
-						brand
-								}
-							}
-						`
+					}
+					brand
+				}
+			}
+		`
 	});
 }

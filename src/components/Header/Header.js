@@ -47,13 +47,15 @@ export default class Header extends Component {
 
 	showModal = () => {
 		this.setState(prevState => ({
-			showModalCart: !prevState.showModalCart
+			showModalCart: !prevState.showModalCart,
+			showModalCurrency: false
 		}));
 	};
 
 	showCurrency = () => {
 		this.setState(prevState => ({
-			showModalCurrency: !prevState.showModalCurrency
+			showModalCurrency: !prevState.showModalCurrency,
+			showModalCart: false
 		}));
 	};
 
