@@ -1,3 +1,6 @@
+import { productDuplicateCheck } from './productDuplicateCheck';
+import changeQty from './productQtyChanger';
+
 export default function productSubmitter(state, context) {
 	const { setProduct } = context;
 	const { name, gallery, brand, prices } = state.product;
@@ -10,8 +13,25 @@ export default function productSubmitter(state, context) {
 	});
 
 	let prodId = Date.now();
-	const newProduct = { prodId, name, gallery, brand, qty: 1, prices, attributes: prodAttrFiltered };
-	setProduct(newProduct);
+	const newProduct = {
+		prodId,
+		name,
+		gallery,
+		brand,
+		qty: 1,
+		prices,
+		attributes: prodAttrFiltered
+	};
 
-	localStorage.setItem(prodId, JSON.stringify(newProduct));
+	let duplicate = productDuplicateCheck(newProduct);
+	console.log(duplicate);
+
+	if (duplicate.length === 0) {
+		setProduct(newProduct);
+		localStorage.setItem(prodId, JSON.stringify(newProduct));
+	} else {
+		duplicate[0].qty += 1;
+		console.log(duplicate[0].qty);
+		changeQty(duplicate[0].prodId, duplicate[0].qty, context);
+	}
 }

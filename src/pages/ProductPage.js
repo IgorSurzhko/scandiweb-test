@@ -1,11 +1,11 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 
 import { ReactComponent as ArrUp } from '../assets/arrowUp.svg';
 import { ReactComponent as ArrDown } from '../assets/arrowDown.svg';
 
 import Header from '../components/Header/Header';
+import Spinner from '../components/Spinner/Spinner';
 
 import { productFetch } from '../utils/productFetch';
 import ProductContext from '../utils/productContext';
@@ -18,7 +18,6 @@ export default class ProductPage extends Component {
 		super();
 
 		this.state = {
-			modalShow: false,
 			isLoaded: true,
 			product: {},
 			bigImgSrc: '',
@@ -52,10 +51,6 @@ export default class ProductPage extends Component {
 		if (prevState.currencyIndex !== this.context.currencyIndex) {
 			this.setState({ currencyIndex: this.context.currencyIndex });
 		}
-	}
-
-	createMarkup() {
-		return this.state.product.description;
 	}
 
 	attrCheck = e => {
@@ -105,7 +100,7 @@ export default class ProductPage extends Component {
 		}
 	};
 
-	attributeMapper = attr => {
+	attributeItemLogic = attr => {
 		return attr.items.map(item => (
 			<div className="productBoxWrapper" key={item.value}>
 				<input
@@ -126,78 +121,96 @@ export default class ProductPage extends Component {
 		));
 	};
 
+	mappedAttributes = () => {
+		if (Object.keys(this.state.product.attributes).length === 0) return;
+
+		return (
+			<>
+				{this.state.product.attributes.map(attr => (
+					<div key={attr.name}>
+						<p className="productBoxItemAttrName">{attr.name}:</p>
+						<div className="productBoxAttrSelection">
+							{this.attributeItemLogic(attr)}
+						</div>
+					</div>
+				))}
+			</>
+		);
+	};
+
+	priceHandler = () => {
+		return (
+			<>
+				<p className="productBoxItemPrice">Price:</p>
+				<p className="productBoxItemPriceDigit">
+					{this.state.product.prices[this.state.currencyIndex].currency.symbol}
+					{this.state.product.prices[this.state.currencyIndex].amount}
+				</p>
+			</>
+		);
+	};
+
+	sidePictureSliderLogic = () => {
+		return (
+			<div className="productBoxMiniPic">
+				<div className="productBoxArrowUp">
+					{this.state.product.gallery.length > 1 && <ArrUp onClick={this.onArrowUp} />}
+				</div>
+				<div className="productBoxArrowDown">
+					{this.state.product.gallery.length > 1 && (
+						<ArrDown onClick={this.onArrowDown} />
+					)}
+				</div>
+
+				{this.state.product.gallery
+					.slice(0 + this.state.sliderImgIdx, 3 + this.state.sliderImgIdx)
+					.map(gallery => (
+						<img
+							onClick={this.bigImgChanger}
+							key={gallery}
+							src={gallery}
+							alt="prod pic"
+						/>
+					))}
+			</div>
+		);
+	};
+
+	submitButtonLogic = () => {
+		return (
+			<button
+				onClick={this.submitHandler}
+				className="disabled"
+				disabled={!this.state.isAttrAllChecked}>
+				{!this.state.isAttrAllChecked ? 'please select item options' : 'add to cart'}
+			</button>
+		);
+	};
+
 	render() {
+		if (this.state.isLoaded) return <Spinner />;
 		return (
 			<>
 				<Header />
-				{!this.state.isLoaded && (
-					<div className="productBox">
-						<div className="productBoxMiniPic">
-							<div className="productBoxArrowUp">
-								{this.state.product.gallery.length > 1 && (
-									<ArrUp onClick={this.onArrowUp} />
-								)}
-							</div>
-							<div className="productBoxArrowDown">
-								{this.state.product.gallery.length > 1 && (
-									<ArrDown onClick={this.onArrowDown} />
-								)}
-							</div>
+				<div className="productBox">
+					{this.sidePictureSliderLogic()}
 
-							{this.state.product.gallery
-								.slice(0 + this.state.sliderImgIdx, 3 + this.state.sliderImgIdx)
-								.map(gallery => (
-									<img
-										onClick={this.bigImgChanger}
-										key={gallery}
-										src={gallery}
-										alt="prod pic"
-									/>
-								))}
-						</div>
-						<div className="productBoxBigPic">
-							{<img src={this.state.bigImgSrc} alt="prod main pic" />}
-						</div>
-						<div className="productBoxItemAttr">
-							<p className="productBoxItemName">{this.state.product.brand}</p>
-							<p className="productBoxItemDescr">{this.state.product.name}</p>
+					<div className="productBoxBigPic">
+						{<img src={this.state.bigImgSrc} alt="prod main pic" />}
+					</div>
+					<div className="productBoxItemAttr">
+						<p className="productBoxItemName">{this.state.product.brand}</p>
+						<p className="productBoxItemDescr">{this.state.product.name}</p>
 
-							{Object.keys(this.state.product.attributes).length !== 0 && (
-								<>
-									{this.state.product.attributes.map(attr => (
-										<div key={attr.name}>
-											<p className="productBoxItemAttrName">{attr.name}:</p>
-											<div className="productBoxAttrSelection">
-												{this.attributeMapper(attr)}
-											</div>
-										</div>
-									))}
-								</>
-							)}
+						{this.mappedAttributes()}
+						{this.priceHandler()}
+						{this.submitButtonLogic()}
 
-							<p className="productBoxItemPrice">Price:</p>
-							<p className="productBoxItemPriceDigit">
-								{
-									this.state.product.prices[this.state.currencyIndex].currency
-										.symbol
-								}
-								{this.state.product.prices[this.state.currencyIndex].amount}
-							</p>
-							<Link to="/cart" onClick={this.submitHandler}>
-								<button
-									className="disabled"
-									disabled={!this.state.isAttrAllChecked}>
-									{!this.state.isAttrAllChecked
-										? 'please select item options'
-										: 'add to cart'}
-								</button>
-							</Link>
-							<div className="productBoxItemDescrText">
-								{parse(this.state.product.description)}
-							</div>
+						<div className="productBoxItemDescrText">
+							{parse(this.state.product.description)}
 						</div>
 					</div>
-				)}
+				</div>
 			</>
 		);
 	}
