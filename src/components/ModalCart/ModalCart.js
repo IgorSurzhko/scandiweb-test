@@ -42,8 +42,8 @@ export default class ModalCart extends Component {
 		}
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		const context = this.context;
+	async componentDidUpdate(prevProps, prevState) {
+		const context = await this.context;
 
 		if (
 			prevState.purchasedProd.product !== context.product ||
